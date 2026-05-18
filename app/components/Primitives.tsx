@@ -1,118 +1,94 @@
 import type { Theme } from "./theme";
 
 export function Section({
-  t,
   id,
   kicker,
   children,
-  bg,
-  divider,
-  maxWidth = 1280,
-  pad = 96,
+  className = "",
+  divider = false,
 }: {
-  t: Theme;
   id?: string;
   kicker?: string;
   children: React.ReactNode;
-  bg?: string;
+  /** Tailwind classes for the section wrapper (e.g. "bg-card") */
+  className?: string;
   divider?: boolean;
-  maxWidth?: number;
-  pad?: number;
 }) {
   return (
     <section
       id={id}
       data-section={kicker}
-      style={{
-        background: bg || "transparent",
-        borderTop: divider ? `1px solid ${t.soft}` : undefined,
-      }}
+      className={
+        (divider ? "border-t border-soft " : "") +
+        (className || "")
+      }
     >
-      <div style={{ maxWidth, margin: "0 auto", padding: `${pad}px 48px` }}>
-        {kicker && <SectionKicker t={t}>{kicker}</SectionKicker>}
+      <div className="container-page py-16 sm:py-20 lg:py-24">
+        {kicker && <SectionKicker>{kicker}</SectionKicker>}
         {children}
       </div>
     </section>
   );
 }
 
-export function SectionKicker({ t, children }: { t: Theme; children: React.ReactNode }) {
+export function SectionKicker({
+  children,
+  tone = "accent",
+}: {
+  children: React.ReactNode;
+  tone?: "accent" | "paper";
+}) {
+  const textColor = tone === "paper" ? "text-paper/80" : "text-accent";
+  const lineColor = tone === "paper" ? "bg-paper/40" : "bg-ink/85";
   return (
-    <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 28 }}>
+    <div className="mb-7 flex items-center gap-3 sm:gap-4">
       <span
-        style={{
-          fontFamily: t.mono,
-          fontSize: 11,
-          letterSpacing: ".2em",
-          textTransform: "uppercase",
-          color: t.accent,
-          whiteSpace: "nowrap",
-        }}
+        className={
+          "whitespace-nowrap font-mono text-[10px] uppercase tracking-[.2em] sm:text-[11px] " +
+          textColor
+        }
       >
         {children}
       </span>
-      <span style={{ flex: 1, height: 1, background: t.ink, opacity: 0.85 }} />
+      <span className={"h-px flex-1 " + lineColor} />
     </div>
   );
 }
 
+/**
+ * iPhone-style screenshot frame. Scales fluidly: maxWidth caps the rendered
+ * size on wide viewports; on narrow viewports it shrinks to fit its column.
+ * Aspect ratio is preserved automatically.
+ */
 export function AppScreenshot({
   src,
   alt = "",
-  width = 320,
+  maxWidth = 320,
 }: {
   src: string;
   alt?: string;
-  width?: number;
+  maxWidth?: number;
 }) {
-  const w = width;
-  const h = (2424 / 1080) * w;
-  const r = 40;
-  const pad = 8;
   return (
-    <div
-      style={{
-        flex: "0 0 auto",
-        display: "inline-flex",
-        flexDirection: "column",
-        alignItems: "center",
-      }}
-    >
+    <div className="inline-flex flex-col items-center" style={{ width: "100%", maxWidth }}>
       <div
+        className="relative w-full overflow-hidden rounded-[10%/4.5%] bg-[#0e0f12] p-[2.5%]"
         style={{
-          width: w,
-          height: h,
-          background: "#0e0f12",
-          borderRadius: r,
-          padding: pad,
+          aspectRatio: "1080 / 2424",
           boxShadow:
             "0 1px 0 rgba(255,255,255,.05) inset, 0 0 0 1.5px #2a2c30, 0 30px 80px -28px rgba(15,28,40,.35), 0 6px 18px -8px rgba(15,28,40,.18)",
-          position: "relative",
         }}
       >
         <div
-          style={{
-            width: "100%",
-            height: "100%",
-            borderRadius: r - pad,
-            overflow: "hidden",
-            background: "#ece5d3",
-            position: "relative",
-          }}
+          className="h-full w-full overflow-hidden rounded-[8%/3.5%] bg-[#ece5d3]"
         >
           <img
             src={src}
             alt={alt}
             draggable={false}
-            style={{
-              display: "block",
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-              objectPosition: "top center",
-              userSelect: "none",
-              pointerEvents: "none",
-            }}
+            loading="lazy"
+            decoding="async"
+            className="pointer-events-none block h-full w-full select-none object-cover object-top"
           />
         </div>
       </div>
@@ -135,70 +111,28 @@ export function PhotoSlot({
   const lineColor = "rgba(26,22,18,0.18)";
   return (
     <div
+      className="relative flex w-full items-center justify-center overflow-hidden text-ink/70"
       style={{
-        position: "relative",
-        width: "100%",
         aspectRatio: aspect,
         background: bg,
         backgroundImage: `repeating-linear-gradient(135deg, transparent 0 14px, ${lineColor} 14px 15px)`,
-        overflow: "hidden",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        fontFamily: "Inter, system-ui, sans-serif",
-        color: "rgba(26,22,18,0.7)",
       }}
     >
-      {[
-        { top: 8, left: 8, bt: 1, bl: 1 },
-        { top: 8, right: 8, bt: 1, br: 1 },
-        { bottom: 8, left: 8, bb: 1, bl: 1 },
-        { bottom: 8, right: 8, bb: 1, br: 1 },
-      ].map((c, i) => (
-        <span
-          key={i}
-          style={{
-            position: "absolute",
-            width: 14,
-            height: 14,
-            borderTop: c.bt ? `1.5px solid rgba(26,22,18,.55)` : undefined,
-            borderBottom: c.bb ? `1.5px solid rgba(26,22,18,.55)` : undefined,
-            borderLeft: c.bl ? `1.5px solid rgba(26,22,18,.55)` : undefined,
-            borderRight: c.br ? `1.5px solid rgba(26,22,18,.55)` : undefined,
-            top: c.top,
-            left: c.left,
-            right: c.right,
-            bottom: c.bottom,
-          }}
-        />
-      ))}
+      <span className="absolute left-2 top-2 h-[14px] w-[14px] border-l-[1.5px] border-t-[1.5px] border-ink/55" />
+      <span className="absolute right-2 top-2 h-[14px] w-[14px] border-r-[1.5px] border-t-[1.5px] border-ink/55" />
+      <span className="absolute bottom-2 left-2 h-[14px] w-[14px] border-b-[1.5px] border-l-[1.5px] border-ink/55" />
+      <span className="absolute bottom-2 right-2 h-[14px] w-[14px] border-b-[1.5px] border-r-[1.5px] border-ink/55" />
 
-      <div
-        style={{
-          padding: "20px 28px",
-          textAlign: "center",
-          maxWidth: "85%",
-          background: "rgba(255,255,255,0.62)",
-          backdropFilter: "blur(2px)",
-          border: `1px dashed rgba(26,22,18,.4)`,
-        }}
-      >
-        <div
-          style={{
-            fontSize: 10,
-            letterSpacing: ".18em",
-            textTransform: "uppercase",
-            color: "rgba(26,22,18,.55)",
-            marginBottom: 6,
-            fontWeight: 600,
-          }}
-        >
+      <div className="max-w-[85%] border border-dashed border-ink/40 bg-white/60 px-5 py-4 text-center backdrop-blur-[2px] sm:px-7 sm:py-5">
+        <div className="mb-1 text-[10px] font-semibold uppercase tracking-[.18em] text-ink/55">
           {kind}
         </div>
-        <div style={{ fontSize: 13, lineHeight: 1.45, color: "rgba(26,22,18,.85)" }}>
-          {label}
-        </div>
+        <div className="text-[13px] leading-[1.45] text-ink/85">{label}</div>
       </div>
     </div>
   );
 }
+
+/** Helper passed by some callers; not used by the new components, but kept
+ * to avoid an unused-import warning if it's referenced elsewhere. */
+export type { Theme };

@@ -55,17 +55,16 @@ export default function Bewerbung() {
       {(t) => (
         <>
           <PageHero
-            t={t}
             path="/bewerbung"
             title={
               <>
-                Bewerbung als <em style={{ fontStyle: "italic", color: t.accent }}>Tester:in</em>.
+                Bewerbung als <em className="italic text-accent">Tester:in</em>.
               </>
             }
             intro="Etwa eine halbe bis ganze Stunde Onboarding-Call. Du entscheidest danach, ob du teilnehmen willst — wir entscheiden, ob wir gut helfen können. Wenn es nicht passt, sagen wir das ehrlich."
           />
           <SectionBewerbung t={t} state={state} isSubmitting={isSubmitting} />
-          <BackToHome t={t} />
+          <BackToHome />
         </>
       )}
     </PageShell>

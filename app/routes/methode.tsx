@@ -12,7 +12,6 @@ export default function Methode() {
       {(t) => (
         <>
           <PageHero
-            t={t}
             path="/methode"
             title="Die Methode."
             intro={
@@ -21,7 +20,7 @@ export default function Methode() {
                 beschrieben, und im Kern ist sie das, was Ärzt:innen lernen, wenn sie
                 Differenzialdiagnostik studieren: nichts vorab ausschließen, dann systematisch
                 aussortieren, bis die Wahrheit übrig bleibt.{" "}
-                <em style={{ fontStyle: "italic", color: t.ink }}>
+                <em className="italic text-ink">
                   Das Problem ist nicht die Methode — das Problem ist die Zeit, die sie braucht. In
                   einer Sprechstunde geht das nicht. Bei uns schon.
                 </em>
@@ -31,7 +30,7 @@ export default function Methode() {
           <SectionMethode t={t} />
           <SectionBegleitung t={t} />
           <SectionKosten t={t} />
-          <BackToHome t={t} />
+          <BackToHome />
         </>
       )}
     </PageShell>

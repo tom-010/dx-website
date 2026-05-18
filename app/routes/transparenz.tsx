@@ -12,7 +12,6 @@ export default function Transparenz() {
       {(t) => (
         <>
           <PageHero
-            t={t}
             path="/transparenz"
             title="Transparenz."
             intro="Wir sind ein Forschungsprogramm in einer frühen Phase. Hier ist, wo genau wir stehen, wie wir mit deinen Daten umgehen, wie wir finanziert sind — und wer haftet, wenn etwas schiefläuft."
@@ -20,7 +19,7 @@ export default function Transparenz() {
           <SectionAlpha t={t} />
           <SectionDaten t={t} />
           <SectionHaftung t={t} />
-          <BackToHome t={t} />
+          <BackToHome />
         </>
       )}
     </PageShell>

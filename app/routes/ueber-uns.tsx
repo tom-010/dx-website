@@ -12,7 +12,6 @@ export default function UeberUns() {
       {(t) => (
         <>
           <PageHero
-            t={t}
             path="/ueber-uns"
             title="Tom und Christoph."
             intro="Wer das hier macht — und der Fall, mit dem alles angefangen hat."
@@ -21,7 +20,7 @@ export default function UeberUns() {
           <div id="erster-fall">
             <SectionBouldering t={t} />
           </div>
-          <BackToHome t={t} />
+          <BackToHome />
         </>
       )}
     </PageShell>

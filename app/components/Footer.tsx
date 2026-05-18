@@ -1,98 +1,80 @@
-import type { Theme } from "./theme";
+import { theme } from "./theme";
 
-function FooterCol({ title, t, children }: { title: string; t: Theme; children: React.ReactNode }) {
+function FooterCol({
+  title,
+  children,
+}: {
+  title: string;
+  children: React.ReactNode;
+}) {
   return (
     <div>
-      <div
-        style={{
-          fontSize: 10,
-          letterSpacing: ".18em",
-          textTransform: "uppercase",
-          marginBottom: 12,
-          opacity: 0.6,
-          fontFamily: t.mono,
-        }}
-      >
+      <div className="mb-3 font-mono text-[10px] uppercase tracking-[.18em] opacity-60">
         {title}
       </div>
-      <ul
-        style={{
-          listStyle: "none",
-          padding: 0,
-          margin: 0,
-          display: "flex",
-          flexDirection: "column",
-          gap: 8,
-          fontSize: 14,
-        }}
-      >
-        {children}
-      </ul>
+      <ul className="m-0 flex list-none flex-col gap-2 p-0 text-sm">{children}</ul>
     </div>
   );
 }
 
-function FL({ href, children }: { href?: string; children: React.ReactNode }) {
+function FL({
+  href,
+  children,
+}: {
+  href?: string;
+  children: React.ReactNode;
+}) {
   return (
     <li>
-      <a href={href} style={{ color: "inherit", textDecoration: "none", opacity: 0.92 }}>
+      <a
+        href={href}
+        className="text-inherit no-underline opacity-90 hover:opacity-100"
+      >
         {children}
       </a>
     </li>
   );
 }
 
-export function Footer({ t }: { t: Theme }) {
+export function Footer() {
   return (
-    <footer style={{ background: t.ink, color: t.paper, padding: "56px 0 32px" }}>
-      <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 48px" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1.6fr 1fr 1fr 1fr", gap: 48 }}>
+    <footer className="bg-ink pb-8 pt-14 text-paper sm:pt-16">
+      <div className="container-page">
+        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-[1.6fr_1fr_1fr_1fr] lg:gap-12">
           <div>
-            <div style={{ fontFamily: t.serif, fontStyle: "italic", fontSize: 26, marginBottom: 14 }}>
-              {t.brand}
+            <div className="mb-3 font-serif text-2xl italic sm:text-[26px]">
+              {theme.brand}
             </div>
-            <p style={{ fontSize: 14, lineHeight: 1.6, color: `${t.paper}aa`, maxWidth: 420, margin: 0 }}>
-              Ein Recherche-Programm für Menschen, deren seltene oder schwer zu diagnostizierende
-              Krankheit das normale Sprechstunden-Format nicht lösen kann. Wir bereiten
-              Facharzttermine vor — die Diagnose stellt immer ein:e Ärzt:in.
+            <p className="m-0 max-w-[42ch] text-sm leading-relaxed text-paper/70">
+              Ein Recherche-Programm für Menschen, deren seltene oder schwer zu
+              diagnostizierende Krankheit das normale Sprechstunden-Format nicht lösen
+              kann. Wir bereiten Facharzttermine vor — die Diagnose stellt immer ein:e
+              Ärzt:in.
             </p>
           </div>
-          <FooterCol title="Programm" t={t}>
+          <FooterCol title="Programm">
             <FL href="/wer-passt">Wer passt — und wer nicht</FL>
             <FL href="/methode">Die Methode</FL>
             <FL href="/transparenz">Transparenz</FL>
             <FL href="/ueber-uns">Über uns</FL>
             <FL href="/faq">Häufige Fragen</FL>
           </FooterCol>
-          <FooterCol title="Rechtlich" t={t}>
-            <FL>Impressum</FL>
-            <FL>Datenschutzerklärung</FL>
-            <FL>AGB · Alpha</FL>
+          <FooterCol title="Rechtlich">
+            <FL href="/impressum">Impressum</FL>
+            <FL href="/datenschutz">Datenschutzerklärung</FL>
+            <FL href="/agb">AGB · Alpha</FL>
           </FooterCol>
-          <FooterCol title="Kontakt" t={t}>
-            <FL>kontakt@dxapp.health</FL>
-            <FL>datenschutz@dxapp.health</FL>
-            <div style={{ fontSize: 12, color: `${t.paper}88`, marginTop: 8, lineHeight: 1.5 }}>
+          <FooterCol title="Kontakt">
+            <FL href="mailto:kontakt@dxapp.health">kontakt@dxapp.health</FL>
+            <FL href="mailto:datenschutz@dxapp.health">datenschutz@dxapp.health</FL>
+            <li className="mt-2 text-xs leading-relaxed text-paper/50">
               Datenschutz: direkt an eine echte Person, kein Ticket-System.
-            </div>
+            </li>
           </FooterCol>
         </div>
-        <div
-          style={{
-            marginTop: 48,
-            paddingTop: 22,
-            borderTop: `1px solid ${t.paper}22`,
-            display: "flex",
-            justifyContent: "space-between",
-            fontSize: 11,
-            color: `${t.paper}88`,
-            fontFamily: t.mono,
-            letterSpacing: ".06em",
-            textTransform: "uppercase",
-          }}
-        >
+        <div className="mt-10 flex flex-col gap-2 border-t border-paper/15 pt-6 font-mono text-[11px] uppercase tracking-[.06em] text-paper/50 sm:mt-12 sm:flex-row sm:justify-between sm:gap-4">
           <span>© 2026 · Eigenfinanziert · keine Investor:innen</span>
-          <span>{t.brand} ist Working Title — finaler Name folgt</span>
+          <span>{theme.brand} ist Working Title — finaler Name folgt</span>
         </div>
       </div>
     </footer>

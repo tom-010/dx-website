@@ -12,13 +12,12 @@ export default function FAQ() {
       {(t) => (
         <>
           <PageHero
-            t={t}
             path="/faq"
             title="Häufige Fragen."
             intro="Die zweite Welle Fragen, die eine vorsichtige Person stellt. Wenn deine Frage hier nicht steht: schreib uns. Es geht direkt zu einer Person, nicht in ein Postfach."
           />
           <SectionFAQ t={t} />
-          <BackToHome t={t} />
+          <BackToHome />
         </>
       )}
     </PageShell>

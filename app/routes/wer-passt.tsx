@@ -12,13 +12,12 @@ export default function WerPasst() {
       {(t) => (
         <>
           <PageHero
-            t={t}
             path="/wer-passt"
             title="Bist du hier richtig?"
             intro="Wir filtern in beide Richtungen — für dich, und für uns. Lies das hier zuerst, bevor du dich bewirbst."
           />
           <SectionBistDuHierRichtig t={t} />
-          <BackToHome t={t} />
+          <BackToHome />
         </>
       )}
     </PageShell>

@@ -1,31 +1,25 @@
 import { Form } from "react-router";
 import type { Theme } from "./theme";
-import { Section, SectionKicker, AppScreenshot, PhotoSlot } from "./Primitives";
+import { Section, SectionKicker, AppScreenshot } from "./Primitives";
 
 // ─── /wer-passt ──────────────────────────────────────────────────────────
 function Card({
-  t,
   label,
   accent,
   children,
 }: {
-  t: Theme;
   label: string;
   accent: "ok" | "no";
   children: React.ReactNode;
 }) {
   const isOk = accent === "ok";
   return (
-    <div style={{ background: t.card, border: `1px solid ${t.soft}`, padding: 28, position: "relative" }}>
+    <div className="relative border border-soft bg-card p-6 sm:p-7">
       <div
-        style={{
-          fontFamily: t.mono,
-          fontSize: 11,
-          letterSpacing: ".16em",
-          textTransform: "uppercase",
-          color: isOk ? t.accent : t.mute,
-          marginBottom: 14,
-        }}
+        className={
+          "mb-3.5 font-mono text-[10px] uppercase tracking-[.16em] sm:text-[11px] " +
+          (isOk ? "text-accent" : "text-mute")
+        }
       >
         {label}
       </div>
@@ -35,133 +29,72 @@ function Card({
 }
 
 function Bullets({
-  t,
   kind,
   items,
 }: {
-  t: Theme;
   kind: "check" | "cross";
   items: React.ReactNode[];
 }) {
   const isCheck = kind === "check";
   return (
-    <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 14 }}>
+    <ul className="m-0 flex list-none flex-col gap-3.5 p-0">
       {items.map((c, i) => (
         <li
           key={i}
-          style={{
-            display: "flex",
-            gap: 12,
-            alignItems: "baseline",
-            fontSize: 16,
-            color: t.ink,
-            lineHeight: 1.45,
-          }}
+          className="flex items-baseline gap-3 text-[15px] leading-[1.45] text-ink sm:text-base"
         >
           <span
-            style={{
-              flex: "0 0 auto",
-              fontFamily: t.mono,
-              fontSize: 15,
-              color: isCheck ? t.accent : t.mute,
-              width: 14,
-            }}
+            className={
+              "w-3.5 flex-shrink-0 font-mono text-[15px] " +
+              (isCheck ? "text-accent" : "text-mute")
+            }
           >
             {isCheck ? "✓" : "×"}
           </span>
-          <span style={{ flex: 1 }}>{c}</span>
+          <span className="flex-1">{c}</span>
         </li>
       ))}
     </ul>
   );
 }
 
-export function SectionBistDuHierRichtig({ t }: { t: Theme }) {
+export function SectionBistDuHierRichtig(_: { t: Theme }) {
   return (
-    <Section t={t} kicker="§II · Bist du hier richtig?" divider>
-      <div style={{ display: "grid", gridTemplateColumns: "1.1fr 1fr", gap: 56, marginBottom: 48 }}>
-        <h2
-          style={{
-            fontFamily: t.serif,
-            fontWeight: 400,
-            fontSize: 56,
-            lineHeight: 1.04,
-            letterSpacing: "-0.015em",
-            margin: 0,
-            color: t.ink,
-          }}
-        >
+    <Section kicker="§II · Bist du hier richtig?" divider>
+      <div className="mb-10 grid grid-cols-1 gap-8 lg:mb-12 lg:grid-cols-[1.1fr_1fr] lg:gap-14">
+        <h2 className="m-0 font-serif text-[2rem] font-normal leading-[1.05] tracking-[-0.015em] text-ink sm:text-[2.75rem] lg:text-[3.5rem]">
           Diese Seite ist nicht für jeden.
         </h2>
-        <p
-          style={{
-            fontFamily: t.serif,
-            fontSize: 20,
-            lineHeight: 1.5,
-            color: t.slate,
-            margin: 0,
-            alignSelf: "end",
-          }}
-        >
-          Wir filtern in beide Richtungen — für dich, und für uns. Lies das hier zuerst, bevor du dich
-          bewirbst.
+        <p className="m-0 font-serif text-lg leading-[1.5] text-slate sm:self-end sm:text-xl lg:text-[20px]">
+          Wir filtern in beide Richtungen — für dich, und für uns. Lies das hier zuerst, bevor du
+          dich bewirbst.
         </p>
       </div>
 
-      <div
-        style={{
-          background: t.card,
-          border: `1px solid ${t.soft}`,
-          padding: "40px 48px",
-          marginBottom: 32,
-          maxWidth: 920,
-        }}
-      >
-        <div
-          style={{
-            fontFamily: t.mono,
-            fontSize: 11,
-            letterSpacing: ".18em",
-            color: t.accent,
-            textTransform: "uppercase",
-            marginBottom: 16,
-          }}
-        >
-          Wenn das ungefähr deine Situation ist
-        </div>
-        <p style={{ fontFamily: t.serif, fontSize: 21, lineHeight: 1.55, color: t.ink, margin: 0 }}>
-          Vielleicht sitzt du gerade am Handy. Vielleicht hat dir jemand den Link geschickt. Vielleicht
-          hast du dir deine Symptome ergooglet und bist hier gelandet.{" "}
-          <em style={{ fontStyle: "italic", color: t.accent }}>Was sicher ist:</em> du bist krank,
-          schon länger, nicht erst seit gestern.
+      <div className="mb-8 max-w-[920px] border border-soft bg-card p-6 sm:p-9 lg:p-10">
+        <div className="kicker mb-4">Wenn das ungefähr deine Situation ist</div>
+        <p className="m-0 font-serif text-lg leading-[1.55] text-ink sm:text-xl lg:text-[21px]">
+          Vielleicht sitzt du gerade am Handy. Vielleicht hat dir jemand den Link geschickt.
+          Vielleicht hast du dir deine Symptome ergooglet und bist hier gelandet.{" "}
+          <em className="italic text-accent">Was sicher ist:</em> du bist krank, schon länger,
+          nicht erst seit gestern.
         </p>
-        <p style={{ fontFamily: t.serif, fontSize: 19, lineHeight: 1.6, color: t.slate, marginTop: 18 }}>
-          Du warst bei deinem Hausarzt oder deiner Hausärztin. Du hast Wochen oder Monate auf einen
-          Spezialarzttermin gewartet. Du bist mit Hoffnung in den Termin gegangen, vielleicht mit
-          einer vorbereiteten Liste von Fragen. Und du bist mit nichts wieder herausgekommen. Vielleicht
-          mit einem „warten Sie noch drei Monate ab". Vielleicht mit „setzen Sie das Medikament weiter".
-          Vielleicht mit einer Vermutung, die sich später als falsch herausgestellt hat.
+        <p className="mt-5 font-serif text-base leading-[1.6] text-slate sm:text-lg lg:text-[19px]">
+          Du warst bei deinem Hausarzt oder deiner Hausärztin. Du hast Wochen oder Monate auf
+          einen Spezialarzttermin gewartet. Du bist mit Hoffnung in den Termin gegangen,
+          vielleicht mit einer vorbereiteten Liste von Fragen. Und du bist mit nichts wieder
+          herausgekommen. Vielleicht mit einem „warten Sie noch drei Monate ab". Vielleicht mit
+          „setzen Sie das Medikament weiter". Vielleicht mit einer Vermutung, die sich später
+          als falsch herausgestellt hat.
         </p>
-        <p
-          style={{
-            fontFamily: t.serif,
-            fontStyle: "italic",
-            fontSize: 20,
-            lineHeight: 1.55,
-            color: t.ink,
-            marginTop: 22,
-            paddingTop: 18,
-            borderTop: `1px dashed ${t.soft}`,
-          }}
-        >
+        <p className="mt-6 border-t border-dashed border-soft pt-5 font-serif text-lg italic leading-[1.55] text-ink sm:text-xl lg:text-[20px]">
           Wenn das ungefähr deine Situation ist, dann bist du hier richtig.
         </p>
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24 }}>
-        <Card t={t} accent="ok" label="Was wir voraussetzen">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+        <Card accent="ok" label="Was wir voraussetzen">
           <Bullets
-            t={t}
             kind="check"
             items={[
               "Du warst bei deinem Hausarzt oder deiner Hausärztin.",
@@ -171,9 +104,8 @@ export function SectionBistDuHierRichtig({ t }: { t: Theme }) {
             ]}
           />
         </Card>
-        <Card t={t} accent="no" label="Diese Seite ist nicht für dich, wenn">
+        <Card accent="no" label="Diese Seite ist nicht für dich, wenn">
           <Bullets
-            t={t}
             kind="cross"
             items={[
               "du einen normalen Schnupfen oder ein klares Akut-Problem hast — geh zu deinem Hausarzt, das System funktioniert für dich.",
@@ -185,49 +117,19 @@ export function SectionBistDuHierRichtig({ t }: { t: Theme }) {
         </Card>
       </div>
 
-      <div
-        style={{
-          marginTop: 32,
-          padding: "24px 28px",
-          background: t.ink,
-          color: t.paper,
-          display: "grid",
-          gridTemplateColumns: "auto 1fr",
-          gap: 24,
-          alignItems: "start",
-        }}
-      >
-        <div
-          style={{
-            fontFamily: t.mono,
-            fontSize: 11,
-            letterSpacing: ".18em",
-            color: t.warm,
-            textTransform: "uppercase",
-            whiteSpace: "nowrap",
-            paddingTop: 4,
-          }}
-        >
+      <div className="mt-8 grid grid-cols-1 items-start gap-5 bg-ink px-6 py-6 text-paper sm:grid-cols-[auto_1fr] sm:gap-6 sm:px-7">
+        <div className="whitespace-nowrap pt-1 font-mono text-[10px] uppercase tracking-[.18em] text-warm sm:text-[11px]">
           Wichtig — Notfall
         </div>
         <div>
-          <p style={{ fontFamily: t.serif, fontSize: 17, lineHeight: 1.55, margin: 0 }}>
-            Wenn du dich gerade in einer akuten Krise befindest — körperlich oder seelisch — wende
-            dich bitte direkt an den ärztlichen Bereitschaftsdienst{" "}
-            <strong style={{ color: t.warm }}>116 117</strong> oder im Notfall an die{" "}
-            <strong style={{ color: t.warm }}>112</strong>. Die Telefonseelsorge ist kostenfrei rund
-            um die Uhr erreichbar: <strong style={{ color: t.warm }}>0800 111 0 111</strong>.
+          <p className="m-0 font-serif text-base leading-[1.55] sm:text-[17px]">
+            Wenn du dich gerade in einer akuten Krise befindest — körperlich oder seelisch —
+            wende dich bitte direkt an den ärztlichen Bereitschaftsdienst{" "}
+            <strong className="text-warm">116 117</strong> oder im Notfall an die{" "}
+            <strong className="text-warm">112</strong>. Die Telefonseelsorge ist kostenfrei rund
+            um die Uhr erreichbar: <strong className="text-warm">0800 111 0 111</strong>.
           </p>
-          <p
-            style={{
-              fontSize: 14,
-              lineHeight: 1.6,
-              color: `${t.paper}aa`,
-              marginTop: 10,
-              fontStyle: "italic",
-              fontFamily: t.serif,
-            }}
-          >
+          <p className="mt-2.5 font-serif text-[13px] italic leading-[1.6] text-paper/70 sm:text-sm">
             Wir sind kein Akut-Kanal und können in einer Krise nicht schnell genug helfen.
           </p>
         </div>
@@ -236,8 +138,8 @@ export function SectionBistDuHierRichtig({ t }: { t: Theme }) {
   );
 }
 
-// ─── /methode helpers ────────────────────────────────────────────────────
-function MethodSixStepFlow({ t }: { t: Theme }) {
+// ─── /methode → 7-step flow (responsive replacement for SVG) ─────────────
+function MethodSevenStepFlow() {
   const steps = [
     "Wir lernen dich kennen",
     "Alle möglichen Krankheiten auf die Liste",
@@ -246,209 +148,73 @@ function MethodSixStepFlow({ t }: { t: Theme }) {
     "Termin findet statt — Befund kommt",
     "Liste wird kürzer — nächste Runde",
   ];
-  const w = 1180;
-  const cardW = 168;
-  const cardH = 110;
-  const gap = (w - 6 * cardW) / 5;
-  const h = 280;
-  const cardY = 130;
-  const x6 = 5 * (cardW + gap) + cardW / 2;
-  const x3 = 2 * (cardW + gap) + cardW / 2;
-  const yTop = cardY - 12;
-  const peak = 40;
 
   return (
-    <div style={{ background: t.card, border: `1px solid ${t.ink}`, padding: 24, overflow: "hidden" }}>
-      <svg viewBox={`0 0 ${w} ${h}`} width="100%" style={{ display: "block" }}>
-        <defs>
-          <marker id="m6arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto">
-            <path d="M0,0 L10,5 L0,10 Z" fill={t.ink} />
-          </marker>
-          <marker
-            id="m6arrAcc"
-            viewBox="0 0 10 10"
-            refX="9"
-            refY="5"
-            markerWidth="9"
-            markerHeight="9"
-            orient="auto"
-          >
-            <path d="M0,0 L10,5 L0,10 Z" fill={t.accent} />
-          </marker>
-        </defs>
+    <div className="border border-ink bg-card p-5 sm:p-7 lg:p-8">
+      <div className="mb-4 flex items-center gap-3 border border-dashed border-accent bg-paper px-4 py-2.5 font-mono text-[10px] uppercase tracking-[.12em] text-accent sm:text-[11px]">
+        <span aria-hidden>↻</span>
+        <span>Wiederholt sich, bis die Diagnose steht — Schritte 3–6 sind die Schleife</span>
+      </div>
 
-        <g>
-          <path
-            d={`M ${x6} ${yTop} C ${x6} ${peak}, ${x3} ${peak}, ${x3} ${yTop}`}
-            fill="none"
-            stroke={t.accent}
-            strokeWidth="1.8"
-            strokeDasharray="6 4"
-            markerEnd="url(#m6arrAcc)"
-          />
-          <text
-            x={(x6 + x3) / 2}
-            y={peak - 6}
-            textAnchor="middle"
-            fontFamily={t.mono}
-            fontSize="11"
-            letterSpacing="0.12em"
-            fill={t.accent}
-          >
-            WIEDERHOLT SICH, BIS DIE DIAGNOSE STEHT
-          </text>
-        </g>
-
+      <ol className="m-0 grid list-none grid-cols-1 gap-3 p-0 sm:grid-cols-2 lg:grid-cols-6 lg:gap-3">
         {steps.map((label, i) => {
-          const x = i * (cardW + gap);
-          const words = label.split(" ");
-          const lines: string[] = [];
-          let cur = "";
-          const maxChars = 22;
-          for (const word of words) {
-            if ((cur + " " + word).trim().length > maxChars) {
-              lines.push(cur.trim());
-              cur = word + " ";
-            } else {
-              cur += word + " ";
-            }
-          }
-          if (cur) lines.push(cur.trim());
+          const inLoop = i >= 2 && i <= 5;
           return (
-            <g key={i}>
-              <rect
-                x={x}
-                y={cardY}
-                width={cardW}
-                height={cardH}
-                fill={t.paper}
-                stroke={t.ink}
-                strokeWidth="1.5"
-              />
-              <text
-                x={x + 14}
-                y={cardY + 24}
-                fontFamily={t.mono}
-                fontSize="11"
-                letterSpacing="0.14em"
-                fill={t.accent}
-              >
-                SCHRITT {String(i + 1).padStart(2, "0")}
-              </text>
-              {lines.slice(0, 3).map((ln, li) => (
-                <text
-                  key={li}
-                  x={x + 14}
-                  y={cardY + 50 + li * 18}
-                  fontFamily="Inter"
-                  fontSize="14"
-                  fontWeight="500"
-                  fill={t.ink}
-                >
-                  {ln}
-                </text>
-              ))}
-              {i < steps.length - 1 && (
-                <line
-                  x1={x + cardW + 4}
-                  y1={cardY + cardH / 2}
-                  x2={x + cardW + gap - 4}
-                  y2={cardY + cardH / 2}
-                  stroke={t.ink}
-                  strokeWidth="1.5"
-                  markerEnd="url(#m6arr)"
-                />
-              )}
-            </g>
+            <li
+              key={i}
+              className={
+                "relative flex flex-col gap-1.5 border-t-2 bg-paper p-4 " +
+                (inLoop ? "border-accent" : "border-ink")
+              }
+            >
+              <div className="font-mono text-[10px] uppercase tracking-[.14em] text-accent">
+                Schritt {String(i + 1).padStart(2, "0")}
+              </div>
+              <div className="text-[15px] font-medium leading-[1.25] text-ink sm:text-base">
+                {label}
+              </div>
+            </li>
           );
         })}
+      </ol>
 
-        <g>
-          <line
-            x1={x6}
-            y1={cardY + cardH}
-            x2={x6}
-            y2={cardY + cardH + 30}
-            stroke={t.ink}
-            strokeWidth="1.2"
-          />
-          <rect x={x6 - 90} y={cardY + cardH + 30} width={180} height={40} fill={t.ink} stroke={t.ink} />
-          <text
-            x={x6}
-            y={cardY + cardH + 55}
-            textAnchor="middle"
-            fontFamily={t.serif}
-            fontStyle="italic"
-            fontSize="16"
-            fill={t.paper}
-          >
-            → Diagnose steht
-          </text>
-        </g>
-      </svg>
+      <div className="mt-4 inline-flex items-center bg-ink px-4 py-2 font-serif text-base italic text-paper sm:text-[17px]">
+        → Diagnose steht
+      </div>
     </div>
   );
 }
 
 function StoryRow({
-  t,
   n,
   title,
   body,
   subBody,
   imgSide,
   imgSrc,
-  imgLabel,
-  imgAspect,
+  photoSrcBase,
+  photoAlt,
 }: {
-  t: Theme;
   n: string;
   title: string;
   body: string;
   subBody?: string;
   imgSide: "left" | "right";
   imgSrc?: string;
-  imgLabel?: string;
-  imgAspect?: string;
+  photoSrcBase?: string;
+  photoAlt?: string;
 }) {
   const text = (
-    <div style={{ padding: "0 8px" }}>
-      <div
-        style={{
-          fontFamily: t.mono,
-          fontSize: 12,
-          letterSpacing: ".18em",
-          color: t.accent,
-          textTransform: "uppercase",
-        }}
-      >
+    <div className="px-1">
+      <div className="font-mono text-[11px] uppercase tracking-[.18em] text-accent sm:text-xs">
         Schritt {n}
       </div>
-      <h3
-        style={{
-          fontFamily: t.serif,
-          fontWeight: 400,
-          fontSize: 38,
-          lineHeight: 1.08,
-          letterSpacing: "-0.012em",
-          margin: "14px 0 0",
-          color: t.ink,
-        }}
-      >
+      <h3 className="mt-3.5 font-serif text-[1.75rem] font-normal leading-[1.08] tracking-[-0.012em] text-ink sm:text-[2rem] lg:text-[2.375rem]">
         {title}
       </h3>
-      <p style={{ fontSize: 17, lineHeight: 1.6, color: t.slate, marginTop: 18 }}>{body}</p>
+      <p className="mt-4 text-base leading-[1.6] text-slate sm:text-[17px]">{body}</p>
       {subBody && (
-        <p
-          style={{
-            fontFamily: t.serif,
-            fontStyle: "italic",
-            fontSize: 16,
-            color: t.mute,
-            lineHeight: 1.55,
-            marginTop: 14,
-          }}
-        >
+        <p className="mt-3.5 font-serif text-[15px] italic leading-[1.55] text-mute sm:text-base">
           {subBody}
         </p>
       )}
@@ -456,51 +222,50 @@ function StoryRow({
   );
 
   const img = (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        padding: "16px 0",
-        position: "relative",
-      }}
-    >
+    <div className="relative flex items-center justify-center py-4">
       <div
+        aria-hidden
+        className="pointer-events-none absolute inset-8 opacity-45"
         style={{
-          position: "absolute",
-          inset: 32,
-          background: `radial-gradient(50% 50% at 50% 50%, ${t.warm} 0%, transparent 70%)`,
-          opacity: 0.45,
-          pointerEvents: "none",
+          background: `radial-gradient(50% 50% at 50% 50%, var(--color-warm) 0%, transparent 70%)`,
         }}
       />
-      <div style={{ position: "relative" }}>
+      <div className="relative w-full max-w-[360px]">
         {imgSrc ? (
-          <AppScreenshot src={imgSrc} width={260} alt={title} />
-        ) : (
-          <div style={{ width: 360 }}>
-            <PhotoSlot label={imgLabel || ""} aspect={imgAspect || "4/3"} tone={t.photoTone} />
+          <div className="mx-auto w-full max-w-[240px] sm:max-w-[260px]">
+            <AppScreenshot src={imgSrc} alt={title} maxWidth={260} />
           </div>
-        )}
+        ) : photoSrcBase ? (
+          <picture>
+            <source srcSet={`${photoSrcBase}.webp`} type="image/webp" />
+            <img
+              src={`${photoSrcBase}.jpg`}
+              alt={photoAlt || title}
+              loading="lazy"
+              decoding="async"
+              width={1200}
+              height={900}
+              className="block aspect-[4/3] w-full bg-soft object-cover"
+            />
+          </picture>
+        ) : null}
       </div>
     </div>
   );
 
+  // On mobile, always: text first, image second.
+  // On desktop, respect imgSide.
   return (
     <div
-      style={{
-        padding: "48px 0",
-        display: "grid",
-        gridTemplateColumns: "1fr 1fr",
-        gap: 56,
-        alignItems: "center",
-        borderTop: `1px solid ${t.soft}`,
-      }}
+      className={
+        "grid grid-cols-1 items-center gap-10 border-t border-soft py-10 lg:grid-cols-2 lg:gap-14 lg:py-12 " +
+        (imgSide === "left" ? "lg:[&>*:first-child]:order-2" : "")
+      }
     >
       {imgSide === "left" ? (
         <>
-          {img}
           {text}
+          {img}
         </>
       ) : (
         <>
@@ -512,149 +277,72 @@ function StoryRow({
   );
 }
 
-export function SectionMethode({ t }: { t: Theme }) {
+export function SectionMethode(_: { t: Theme }) {
   return (
-    <section style={{ background: t.paper, borderTop: `1px solid ${t.soft}` }}>
-      <div style={{ maxWidth: 1280, margin: "0 auto", padding: "96px 48px" }}>
-        <SectionKicker t={t}>§IV · Die Methode</SectionKicker>
+    <section className="border-t border-soft bg-paper">
+      <div className="container-page py-16 sm:py-20 lg:py-24">
+        <SectionKicker>§IV · Die Methode</SectionKicker>
 
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1.1fr 1fr",
-            gap: 56,
-            marginBottom: 56,
-            alignItems: "start",
-          }}
-        >
+        <div className="mb-12 grid grid-cols-1 items-start gap-10 lg:mb-14 lg:grid-cols-[1.1fr_1fr] lg:gap-14">
           <div>
-            <div
-              style={{
-                fontFamily: t.mono,
-                fontSize: 11,
-                letterSpacing: ".18em",
-                color: t.accent,
-                textTransform: "uppercase",
-                marginBottom: 12,
-              }}
-            >
-              Das Sherlock-Holmes-Prinzip
-            </div>
-            <h2
-              style={{
-                fontFamily: t.serif,
-                fontWeight: 400,
-                fontSize: 60,
-                lineHeight: 1.03,
-                letterSpacing: "-0.018em",
-                margin: 0,
-                color: t.ink,
-              }}
-            >
+            <div className="kicker mb-3">Das Sherlock-Holmes-Prinzip</div>
+            <h2 className="m-0 font-serif text-[2.25rem] font-normal leading-[1.05] tracking-[-0.018em] text-ink sm:text-[3rem] lg:text-[3.75rem]">
               Unsere Methode hat einen alten Namen.
             </h2>
-            <p style={{ fontSize: 18, lineHeight: 1.6, color: t.slate, marginTop: 24 }}>
-              Sherlock Holmes hat sie in einem Satz beschrieben — und sie ist im Grunde genau das, was
-              Ärzt:innen lernen, wenn sie Differenzialdiagnostik studieren: nichts vorab ausschließen,
-              dann systematisch aussortieren, bis die Wahrheit übrig bleibt. Das Problem ist nicht die
-              Methode. Das Problem ist die Zeit, die sie braucht.
+            <p className="mt-6 text-base leading-[1.6] text-slate sm:text-lg">
+              Sherlock Holmes hat sie in einem Satz beschrieben — und sie ist im Grunde genau
+              das, was Ärzt:innen lernen, wenn sie Differenzialdiagnostik studieren: nichts
+              vorab ausschließen, dann systematisch aussortieren, bis die Wahrheit übrig
+              bleibt. Das Problem ist nicht die Methode. Das Problem ist die Zeit, die sie
+              braucht.
             </p>
           </div>
 
-          <blockquote
-            style={{
-              margin: 0,
-              padding: "32px 36px",
-              background: t.card,
-              borderLeft: `3px solid ${t.accent}`,
-              fontFamily: t.serif,
-            }}
-          >
-            <p
-              style={{
-                fontStyle: "italic",
-                fontWeight: 400,
-                fontSize: 24,
-                lineHeight: 1.4,
-                color: t.ink,
-                margin: 0,
-              }}
-            >
+          <blockquote className="m-0 border-l-[3px] border-accent bg-card p-6 font-serif sm:p-8 lg:p-9">
+            <p className="m-0 font-serif text-lg italic leading-[1.4] text-ink sm:text-xl lg:text-2xl">
               „Wenn man das Unmögliche ausgeschlossen hat, muss das, was übrig bleibt — wie
               unwahrscheinlich es auch sein mag — die Wahrheit sein."
             </p>
-            <footer
-              style={{
-                fontFamily: t.sans,
-                fontSize: 13,
-                color: t.mute,
-                marginTop: 18,
-                letterSpacing: ".02em",
-              }}
-            >
-              — Arthur Conan Doyle, <em style={{ fontFamily: t.serif }}>Das Zeichen der Vier</em>
+            <footer className="mt-4 text-[13px] tracking-wide text-mute">
+              — Arthur Conan Doyle, <em className="font-serif">Das Zeichen der Vier</em>
             </footer>
           </blockquote>
         </div>
 
-        <div style={{ marginTop: 24, marginBottom: 64 }}>
-          <div
-            style={{
-              fontFamily: t.mono,
-              fontSize: 11,
-              letterSpacing: ".18em",
-              color: t.accent,
-              textTransform: "uppercase",
-              marginBottom: 16,
-            }}
-          >
-            Wie wir arbeiten · sechs Schritte
-          </div>
-          <MethodSixStepFlow t={t} />
+        <div className="mb-14 lg:mb-16">
+          <div className="kicker mb-4">Wie wir arbeiten · sechs Schritte</div>
+          <MethodSevenStepFlow />
         </div>
 
-        <h3
-          style={{
-            fontFamily: t.serif,
-            fontWeight: 400,
-            fontSize: 42,
-            lineHeight: 1.08,
-            letterSpacing: "-0.012em",
-            margin: "32px 0 8px",
-            color: t.ink,
-          }}
-        >
+        <h3 className="mb-2 mt-8 font-serif text-[1.75rem] font-normal leading-[1.08] tracking-[-0.012em] text-ink sm:text-[2.25rem] lg:text-[2.625rem]">
           Die sechs Schritte im Detail.
         </h3>
-        <p style={{ fontSize: 17, lineHeight: 1.6, color: t.slate, marginBottom: 32, maxWidth: 820 }}>
-          Was hinter jedem Schritt steht — und warum wir das anders machen können als eine Sprechstunde,
-          die fünfzehn Minuten hat.
+        <p className="mb-8 max-w-[60ch] text-base leading-[1.6] text-slate sm:text-[17px]">
+          Was hinter jedem Schritt steht — und warum wir das anders machen können als eine
+          Sprechstunde, die fünfzehn Minuten hat.
         </p>
 
         <StoryRow
-          t={t}
           n="01"
           title="Wir legen uns nicht zu früh fest."
           body="Eine der häufigsten Fehlerquellen in der Diagnostik ist die verfrühte Festlegung — wenn ein:e Ärzt:in eine plausible Erklärung findet und mit der Suche aufhört, bevor andere Möglichkeiten geprüft sind. Das ist menschlich und in einer Sprechstunde fast unvermeidlich."
           subBody="Unser System verfolgt eine offene Liste plausibler Ursachen so lange, bis jede ernsthaft geprüft wurde. Auch dann, wenn die erste Erklärung gut zu passen scheint."
           imgSide="left"
-          imgLabel="Stockfoto: abstrakte Verzweigung — Gabelung, mehrere Wege, halb-geometrisch."
-          imgAspect="4/3"
+          photoSrcBase="/method_01_branching"
+          photoAlt="Abstrakte Verzweigung — Gabelung, mehrere Wege"
         />
 
         <StoryRow
-          t={t}
           n="02"
           title="Wir durchsuchen die medizinische Forschung — auf deinen Fall hin."
           body="Es gibt jedes Jahr hunderttausende neue medizinische Studien. Selbst eine spezialisierte Fachärzt:in kann nicht alles lesen, was in ihrem eigenen Feld publiziert wird, geschweige denn was in angrenzenden Feldern erscheint. Was wäre, wenn die Studie, die deinen Fall erklärt, vor zwei Jahren in einer kleinen Klinik in Adelaide veröffentlicht wurde? Niemand kann dir versprechen, dass sie dein:e Ärzt:in gelesen hat."
           subBody="Unser System nimmt sich pro Recherchezyklus etwa eine Woche Zeit, durchsucht zehntausende Paper für deinen Fall, filtert das Relevante heraus. In der Alpha-Phase kontrolliert eine echte Person dieses Ergebnis Schritt für Schritt mit."
           imgSide="right"
-          imgLabel="Stockfoto: Wissenschafts-Bibliothek, Papier-Stapel, ruhige Leselicht-Aufnahme."
-          imgAspect="4/3"
+          photoSrcBase="/method_02_library"
+          photoAlt="Wissenschaftliche Bibliothek mit Papierstapeln, ruhiges Leselicht"
         />
 
         <StoryRow
-          t={t}
           n="03"
           title="Wir finden auch die richtige Fachrichtung — und manchmal die konkrete Adresse."
           body="Aus den verfolgten Hypothesen folgt nicht nur, was gefragt werden muss, sondern auch wen du dafür sehen solltest. Beispiel: bei einer ungeklärten Gelenkentzündung kann sich aus den Befunden ergeben, dass eine Hautkrankheit als Ursache in Frage kommt — und dann ist die nächste sinnvolle Tür die dermatologische."
@@ -664,7 +352,6 @@ export function SectionMethode({ t }: { t: Theme }) {
         />
 
         <StoryRow
-          t={t}
           n="04"
           title="Jeder Termin beantwortet eine fokussierte Frage."
           body="Vor jedem Facharzttermin bekommt dein:e Ärzt:in ein zweiseitiges Briefing: eine präzise Frage und der relevante Hintergrund über dich. Du musst nicht deine ganze Geschichte erzählen. Der Termin kann mit dem Schweren anfangen."
@@ -674,131 +361,102 @@ export function SectionMethode({ t }: { t: Theme }) {
         />
 
         <StoryRow
-          t={t}
           n="05"
           title="Schleifen, keine Gerade."
           body="Jeder neue Befund fließt in das Gesamtbild zurück. Die Methode beginnt von vorne, jetzt mit mehr Information. Das ist nicht ein Aufschub — das ist die Methode."
           subBody="Auch wenn du heute keine Energie hast, läuft im Hintergrund weiter, was wir tun können: Literaturrecherche, Befundordnung, das Verknüpfen neuer Daten. Du verlierst keinen Tag, nur weil du einen schlechten Tag hast."
           imgSide="left"
-          imgLabel="Stockfoto: konzentrische Form (Spirale, Schichtung, Wellen) — abstrakt, ruhig."
-          imgAspect="4/3"
+          photoSrcBase="/method_05_spiral"
+          photoAlt="Konzentrische Spirale, abstrakt"
         />
 
         <StoryRow
-          t={t}
           n="06"
           title="Die Diagnose stellt am Ende immer ein Mensch."
           body="Wir entscheiden nicht, was du hast. Wir bereiten so vor, dass dein:e Ärzt:in fundiert entscheiden kann — mit allen Befunden, der passenden Forschung, der konkreten Frage."
           subBody="Eine wirkende Therapie bestätigt am Ende die Diagnose. Bis dahin bleiben wir vorsichtig."
           imgSide="right"
-          imgLabel="Stockfoto: Detail aus Praxis — leerer Schreibtisch mit Akte, Lampe, Stuhl."
-          imgAspect="4/3"
+          photoSrcBase="/method_06_desk"
+          photoAlt="Schreibtisch in einer Praxis mit Akte und Lampe"
         />
       </div>
     </section>
   );
 }
 
-// ─── /ueber-uns ───────────────────────────────────────────────────────────
+// ─── /ueber-uns long bouldering story ────────────────────────────────────
 export function SectionBouldering({ t }: { t: Theme }) {
   return (
-    <section style={{ background: t.ink, color: t.paper, borderTop: `1px solid ${t.soft}` }}>
-      <div style={{ maxWidth: 1280, margin: "0 auto", padding: "96px 48px" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 28 }}>
-          <span
-            style={{
-              fontFamily: t.mono,
-              fontSize: 11,
-              letterSpacing: ".2em",
-              textTransform: "uppercase",
-              color: `${t.paper}cc`,
-            }}
-          >
-            §IV.b · Unser eigener erster Fall
-          </span>
-          <span style={{ flex: 1, height: 1, background: `${t.paper}55` }} />
-        </div>
+    <section className="border-t border-soft bg-ink text-paper">
+      <div className="container-page py-16 sm:py-20 lg:py-24">
+        <SectionKicker tone="paper">§IV.b · Unser eigener erster Fall</SectionKicker>
 
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: 64,
-            marginBottom: 48,
-            alignItems: "end",
-          }}
-        >
-          <h2
-            style={{
-              fontFamily: t.serif,
-              fontWeight: 400,
-              fontSize: 64,
-              lineHeight: 1.02,
-              letterSpacing: "-0.02em",
-              margin: 0,
-            }}
-          >
+        <div className="mb-12 grid grid-cols-1 items-end gap-10 lg:mb-14 lg:grid-cols-2 lg:gap-16">
+          <h2 className="m-0 font-serif text-[2rem] font-normal leading-[1.05] tracking-[-0.02em] sm:text-[3rem] lg:text-[4rem]">
             Wie das in der Praxis aussah — an unserem eigenen Fall.
           </h2>
-          <p style={{ fontSize: 17, lineHeight: 1.6, color: `${t.paper}bb`, margin: 0 }}>
-            Bevor wir andere Patient:innen begleitet haben, haben wir die erste Version des Systems an
-            einem von uns ausprobiert. Keine Vorher/Nachher-Inszenierung — der Punkt der Geschichte
-            ist die <em style={{ fontFamily: t.serif }}>Mechanik</em>, nicht der Heldenmoment.
+          <p className="m-0 text-base leading-[1.6] text-paper/75 sm:text-[17px]">
+            Bevor wir andere Patient:innen begleitet haben, haben wir die erste Version des
+            Systems an einem von uns ausprobiert. Keine Vorher/Nachher-Inszenierung — der
+            Punkt der Geschichte ist die{" "}
+            <em className="font-serif">Mechanik</em>, nicht der Heldenmoment.
           </p>
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "1.4fr 1fr", gap: 64 }}>
-          <div style={{ fontFamily: t.serif, color: t.paper }}>
-            <p style={{ fontSize: 21, lineHeight: 1.55, margin: 0, fontWeight: 400 }}>
-              Einer von uns ist Ultramarathonläufer. Eine Verletzung, drei Monate Pause — und nach
-              dieser Pause begann der Fuß zu schmerzen. Seltsam: warum erst nach drei Monaten? Über
-              die nächsten Monate wurde es schlimmer. Keine fünfhundert Meter Spaziergang mehr ohne
-              Schmerzmittel. Beziehung leidet, Alltag schrumpft.
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1.4fr_1fr] lg:gap-16">
+          <div className="font-serif text-paper">
+            <p className="m-0 text-lg font-normal leading-[1.55] sm:text-xl lg:text-[21px]">
+              Einer von uns ist Ultramarathonläufer. Eine Verletzung, drei Monate Pause — und
+              nach dieser Pause begann der Fuß zu schmerzen. Seltsam: warum erst nach drei
+              Monaten? Über die nächsten Monate wurde es schlimmer. Keine fünfhundert Meter
+              Spaziergang mehr ohne Schmerzmittel. Beziehung leidet, Alltag schrumpft.
             </p>
-            <p style={{ fontSize: 18, lineHeight: 1.65, marginTop: 22, color: `${t.paper}dd` }}>
-              Hausarzt: kein klares Bild, Ibuprofen. Zwei Monate Wartezeit auf die Fachärztin. MRT,
-              Röntgen, alle Untersuchungen sorgfältig. Klare Entzündung im Bild — aber niemand konnte
-              erklären, woher sie kommt. Empfehlung: nochmal drei Monate Pause.
+            <p className="mt-5 text-base leading-[1.65] text-paper/85 sm:text-lg">
+              Hausarzt: kein klares Bild, Ibuprofen. Zwei Monate Wartezeit auf die Fachärztin.
+              MRT, Röntgen, alle Untersuchungen sorgfältig. Klare Entzündung im Bild — aber
+              niemand konnte erklären, woher sie kommt. Empfehlung: nochmal drei Monate Pause.
             </p>
-            <p style={{ fontSize: 18, lineHeight: 1.65, marginTop: 18, color: `${t.paper}dd` }}>
-              Wir sind Data Scientists. Also haben wir die erste Version unserer Diagnose-Software
-              gebaut und unseren eigenen Fall reingegeben. Das System stellte ähnliche Fragen wie die
-              Ärztin: welche Bewegungen, welche Belastung, welche Verschlechterungsmuster. Und hier
-              kommt der Punkt: er hat — als Patient — die falsche Antwort gegeben.
+            <p className="mt-4 text-base leading-[1.65] text-paper/85 sm:text-lg">
+              Wir sind Data Scientists. Also haben wir die erste Version unserer
+              Diagnose-Software gebaut und unseren eigenen Fall reingegeben. Das System
+              stellte ähnliche Fragen wie die Ärztin: welche Bewegungen, welche Belastung,
+              welche Verschlechterungsmuster. Und hier kommt der Punkt: er hat — als Patient
+              — die falsche Antwort gegeben.
             </p>
-            <p style={{ fontSize: 18, lineHeight: 1.65, marginTop: 18, color: `${t.paper}dd` }}>
-              Weil er keine Ultras mehr laufen konnte, hatte er Bouldern angefangen. Wurde besser,
-              kaufte sich engere Kletterschuhe. Während des Kletterns und am Tag danach tat der Fuß
-              nicht weh — erst zwei Tage später. Als Patient konnte er den Zusammenhang nicht sehen.
-              Also sagte er der Ärztin: nach dem Klettern wird es nicht schlimmer. Sie hat ihm
-              geglaubt. Sie war eine gute Ärztin, und mit mehr Zeit hätte sie genau diese Aussage
-              hinterfragt. Aber sie hatte keine Zeit. Er hatte ja schon zwei Monate auf den Termin
-              gewartet.
+            <p className="mt-4 text-base leading-[1.65] text-paper/85 sm:text-lg">
+              Weil er keine Ultras mehr laufen konnte, hatte er Bouldern angefangen. Wurde
+              besser, kaufte sich engere Kletterschuhe. Während des Kletterns und am Tag
+              danach tat der Fuß nicht weh — erst zwei Tage später. Als Patient konnte er den
+              Zusammenhang nicht sehen. Also sagte er der Ärztin: nach dem Klettern wird es
+              nicht schlimmer. Sie hat ihm geglaubt. Sie war eine gute Ärztin, und mit mehr
+              Zeit hätte sie genau diese Aussage hinterfragt. Aber sie hatte keine Zeit. Er
+              hatte ja schon zwei Monate auf den Termin gewartet.
             </p>
-            <p style={{ fontSize: 18, lineHeight: 1.65, marginTop: 18, color: `${t.paper}dd` }}>
-              <strong style={{ color: t.paper }}>Das System hatte Zeit.</strong> Es recherchierte,
-              fand die Literaturlage zu druckbedingten Entzündungen — und es stellte die eigene Aussage
-              des Patienten in Frage: könnte es nicht doch an den engen Schuhen liegen? Die Datenlage
-              passte zu gut, um das nicht zu testen.
+            <p className="mt-4 text-base leading-[1.65] text-paper/85 sm:text-lg">
+              <strong className="text-paper">Das System hatte Zeit.</strong> Es recherchierte,
+              fand die Literaturlage zu druckbedingten Entzündungen — und es stellte die
+              eigene Aussage des Patienten in Frage: könnte es nicht doch an den engen Schuhen
+              liegen? Die Datenlage passte zu gut, um das nicht zu testen.
             </p>
-            <p style={{ fontSize: 18, lineHeight: 1.65, marginTop: 18, color: `${t.paper}dd` }}>
-              Also wurde experimentiert. Alte, lockere Schuhe: zwei Stunden intensives Klettern, keine
-              zusätzlichen Schmerzen am übernächsten Tag. Enge Schuhe: vierzig Minuten lockeres
-              Klettern, deutlich schlimmer. Zwei Tage später wieder lockere Schuhe, zwei Stunden
-              intensiv, nichts. Der Druck war die Ursache der Entzündung, die im MRT sichtbar, aber
-              unerklärt war.
+            <p className="mt-4 text-base leading-[1.65] text-paper/85 sm:text-lg">
+              Also wurde experimentiert. Alte, lockere Schuhe: zwei Stunden intensives
+              Klettern, keine zusätzlichen Schmerzen am übernächsten Tag. Enge Schuhe: vierzig
+              Minuten lockeres Klettern, deutlich schlimmer. Zwei Tage später wieder lockere
+              Schuhe, zwei Stunden intensiv, nichts. Der Druck war die Ursache der Entzündung,
+              die im MRT sichtbar, aber unerklärt war.
             </p>
-            <p style={{ fontSize: 18, lineHeight: 1.65, marginTop: 18, color: `${t.paper}dd` }}>
-              Neue Schuhe, ein paar Monate Geduld, bis die Entzündung abklang. Die Diagnose wirkt im
-              Nachhinein trivial — das geht oft so, wenn man die Antwort kennt. Die Ärztin hätte das
-              mit genug Zeit zum Hinterfragen und Experimentieren wahrscheinlich auch gefunden. Sie
-              hatte sie nicht. Computer haben unbegrenzt davon.
+            <p className="mt-4 text-base leading-[1.65] text-paper/85 sm:text-lg">
+              Neue Schuhe, ein paar Monate Geduld, bis die Entzündung abklang. Die Diagnose
+              wirkt im Nachhinein trivial — das geht oft so, wenn man die Antwort kennt. Die
+              Ärztin hätte das mit genug Zeit zum Hinterfragen und Experimentieren
+              wahrscheinlich auch gefunden. Sie hatte sie nicht. Computer haben unbegrenzt
+              davon.
             </p>
           </div>
 
-          <aside style={{ paddingTop: 12 }}>
+          <aside className="pt-3">
             {t.showPhotos && (
-              <div style={{ marginBottom: 28 }}>
+              <div className="mb-7">
                 <picture>
                   <source srcSet="/boulder_shoes.webp" type="image/webp" />
                   <img
@@ -808,63 +466,24 @@ export function SectionBouldering({ t }: { t: Theme }) {
                     decoding="async"
                     width={1200}
                     height={1800}
-                    style={{
-                      width: "100%",
-                      aspectRatio: "4/5",
-                      objectFit: "cover",
-                      display: "block",
-                      background: `${t.paper}22`,
-                    }}
+                    className="block aspect-[4/5] w-full bg-paper/10 object-cover"
                   />
                 </picture>
               </div>
             )}
-            <div
-              style={{
-                background: `${t.paper}10`,
-                border: `1px solid ${t.paper}33`,
-                padding: 24,
-              }}
-            >
-              <div
-                style={{
-                  fontFamily: t.mono,
-                  fontSize: 11,
-                  letterSpacing: ".18em",
-                  color: t.warm,
-                  textTransform: "uppercase",
-                  marginBottom: 12,
-                }}
-              >
+            <div className="border border-paper/20 bg-paper/[0.06] p-6">
+              <div className="mb-3 font-mono text-[10px] uppercase tracking-[.18em] text-warm sm:text-[11px]">
                 Was diese Geschichte zeigt
               </div>
-              <p
-                style={{
-                  fontFamily: t.serif,
-                  fontSize: 19,
-                  fontStyle: "italic",
-                  lineHeight: 1.5,
-                  color: t.paper,
-                  margin: 0,
-                }}
-              >
-                Nicht jeder Fall ist so klar wie unserer. Manche bleiben ungelöst. Aber: keine Frage,
-                die hinterfragt werden müsste, bleibt unhinterfragt. Keine Aussage wird kritiklos
-                übernommen. Und niemand muss innerhalb von fünf Minuten zu einem Schluss kommen.
+              <p className="m-0 font-serif text-base italic leading-[1.5] text-paper sm:text-lg lg:text-[19px]">
+                Nicht jeder Fall ist so klar wie unserer. Manche bleiben ungelöst. Aber: keine
+                Frage, die hinterfragt werden müsste, bleibt unhinterfragt. Keine Aussage wird
+                kritiklos übernommen. Und niemand muss innerhalb von fünf Minuten zu einem
+                Schluss kommen.
               </p>
             </div>
 
-            <div
-              style={{
-                marginTop: 24,
-                fontFamily: t.mono,
-                fontSize: 11,
-                letterSpacing: ".12em",
-                color: `${t.paper}88`,
-                lineHeight: 1.7,
-                textTransform: "uppercase",
-              }}
-            >
+            <div className="mt-6 font-mono text-[10px] uppercase leading-[1.7] tracking-[.12em] text-paper/55 sm:text-[11px]">
               <div>· Eigene Fallgeschichte · anonymisiert</div>
               <div>· Methodologische Illustration · kein Testimonial</div>
               <div>· Vor der Alpha-Phase · nicht Teil der validierten Fälle</div>
@@ -877,169 +496,97 @@ export function SectionBouldering({ t }: { t: Theme }) {
 }
 
 // ─── /methode → Begleitung ────────────────────────────────────────────────
-export function SectionBegleitung({ t }: { t: Theme }) {
+export function SectionBegleitung(_: { t: Theme }) {
   return (
-    <Section t={t} kicker="§V · Wer dich begleitet" bg={t.card} divider>
-      <div style={{ display: "grid", gridTemplateColumns: "1.3fr 1fr", gap: 64, alignItems: "start" }}>
+    <Section kicker="§V · Wer dich begleitet" divider className="bg-card">
+      <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-[1.3fr_1fr] lg:gap-16">
         <div>
-          <h2
-            style={{
-              fontFamily: t.serif,
-              fontWeight: 400,
-              fontSize: 56,
-              lineHeight: 1.04,
-              letterSpacing: "-0.015em",
-              margin: 0,
-              color: t.ink,
-            }}
-          >
+          <h2 className="m-0 font-serif text-[2rem] font-normal leading-[1.05] tracking-[-0.015em] text-ink sm:text-[2.75rem] lg:text-[3.5rem]">
             Dein:e Data Scientist. Eine echte Person. Vom ersten Gespräch bis zur Diagnose.
           </h2>
-          <p style={{ fontFamily: t.serif, fontSize: 19, lineHeight: 1.55, marginTop: 22, color: t.ink }}>
-            In der Alpha-Phase wird dir eine echte Person zugewiesen, die dich vom ersten Gespräch bis
-            zur Diagnose begleitet — die ganze Zeit dieselbe Person. Wir nennen diese Rolle Data
-            Scientist, weil das ehrlich beschreibt, was sie tut: Daten analysieren, Literatur durchgehen,
-            Recherchen kontrollieren, Algorithmen für deinen konkreten Fall einrichten.
+          <p className="mt-5 font-serif text-lg leading-[1.55] text-ink sm:text-xl lg:text-[19px]">
+            In der Alpha-Phase wird dir eine echte Person zugewiesen, die dich vom ersten
+            Gespräch bis zur Diagnose begleitet — die ganze Zeit dieselbe Person. Wir nennen
+            diese Rolle Data Scientist, weil das ehrlich beschreibt, was sie tut: Daten
+            analysieren, Literatur durchgehen, Recherchen kontrollieren, Algorithmen für
+            deinen konkreten Fall einrichten.
           </p>
 
-          <div
-            style={{
-              marginTop: 28,
-              padding: "26px 28px",
-              background: t.paper,
-              borderLeft: `3px solid ${t.accent}`,
-            }}
-          >
-            <div
-              style={{
-                fontFamily: t.mono,
-                fontSize: 11,
-                letterSpacing: ".18em",
-                color: t.accent,
-                textTransform: "uppercase",
-                marginBottom: 10,
-              }}
-            >
+          <div className="mt-7 border-l-[3px] border-accent bg-paper px-6 py-6 sm:px-7 sm:py-7">
+            <div className="mb-2.5 font-mono text-[10px] uppercase tracking-[.18em] text-accent sm:text-[11px]">
               Die Metapher · einmal
             </div>
-            <p style={{ fontFamily: t.serif, fontSize: 19, lineHeight: 1.5, color: t.ink, margin: 0 }}>
-              Stell dir vor, du hättest einen medizinischen Assistenten, der unbegrenzt Zeit und
-              Motivation hat. Er kann zehntausende Studien in Stunden durchsehen. Er schläft nie. Er
-              macht keine Denkfehler, weil er müde ist. Klüger als ein:e Ärzt:in ist er deshalb nicht
-              — und er muss es auch nicht sein. Das letzte Wort hat immer dein:e Ärzt:in.
+            <p className="m-0 font-serif text-lg leading-[1.5] text-ink sm:text-xl lg:text-[19px]">
+              Stell dir vor, du hättest einen medizinischen Assistenten, der unbegrenzt Zeit
+              und Motivation hat. Er kann zehntausende Studien in Stunden durchsehen. Er
+              schläft nie. Er macht keine Denkfehler, weil er müde ist. Klüger als ein:e
+              Ärzt:in ist er deshalb nicht — und er muss es auch nicht sein. Das letzte Wort
+              hat immer dein:e Ärzt:in.
             </p>
-            <p
-              style={{
-                fontFamily: t.serif,
-                fontSize: 17,
-                lineHeight: 1.55,
-                color: t.slate,
-                margin: "12px 0 0",
-              }}
-            >
-              Was er kann, ist ergänzen, was eine Sprechstunde nicht leisten kann: Tage Recherche,
-              vollständige Hinterfragung, geduldiges Verknüpfen von allem, was über deinen Fall
-              bekannt ist.{" "}
-              <em style={{ fontStyle: "italic", color: t.ink }}>
+            <p className="mt-3 font-serif text-base leading-[1.55] text-slate sm:text-[17px]">
+              Was er kann, ist ergänzen, was eine Sprechstunde nicht leisten kann: Tage
+              Recherche, vollständige Hinterfragung, geduldiges Verknüpfen von allem, was über
+              deinen Fall bekannt ist.{" "}
+              <em className="italic text-ink">
                 Nicht im Wettstreit mit den Ärzt:innen — sondern an ihrer Seite.
               </em>
             </p>
           </div>
 
-          <div style={{ marginTop: 28, display: "grid", gridTemplateColumns: "1fr 1fr", gap: 28 }}>
+          <div className="mt-7 grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-7">
             <div>
-              <div
-                style={{
-                  fontFamily: t.mono,
-                  fontSize: 11,
-                  letterSpacing: ".14em",
-                  color: t.accent,
-                  textTransform: "uppercase",
-                }}
-              >
+              <div className="font-mono text-[10px] uppercase tracking-[.14em] text-accent sm:text-[11px]">
                 Was sie ist
               </div>
-              <p style={{ fontSize: 15, lineHeight: 1.6, color: t.slate, marginTop: 8 }}>
-                Der menschliche Teil des Bildes. Erreichbar per Chat in der App für asynchrone Fragen,
-                in geplanten Teams-Calls für Dinge, die ein Gespräch brauchen.
+              <p className="mt-2 text-[15px] leading-[1.6] text-slate">
+                Der menschliche Teil des Bildes. Erreichbar per Chat in der App für asynchrone
+                Fragen, in geplanten Teams-Calls für Dinge, die ein Gespräch brauchen.
               </p>
             </div>
             <div>
-              <div
-                style={{
-                  fontFamily: t.mono,
-                  fontSize: 11,
-                  letterSpacing: ".14em",
-                  color: t.mute,
-                  textTransform: "uppercase",
-                }}
-              >
+              <div className="font-mono text-[10px] uppercase tracking-[.14em] text-mute sm:text-[11px]">
                 Was sie nicht ist
               </div>
-              <p style={{ fontSize: 15, lineHeight: 1.6, color: t.slate, marginTop: 8 }}>
-                Kein:e Ärzt:in. Sie behandelt nicht, verschreibt nicht, diagnostiziert nicht — das
-                ärztliche Urteil bleibt bei deinen Ärzt:innen.
+              <p className="mt-2 text-[15px] leading-[1.6] text-slate">
+                Kein:e Ärzt:in. Sie behandelt nicht, verschreibt nicht, diagnostiziert nicht —
+                das ärztliche Urteil bleibt bei deinen Ärzt:innen.
               </p>
             </div>
           </div>
         </div>
 
-        <div style={{ display: "flex", justifyContent: "center" }}>
-          <AppScreenshot src="/screens/home_05_doing_answer_question.png" width={300} alt="Chat" />
+        <div className="flex justify-center">
+          <AppScreenshot
+            src="/screens/home_05_doing_answer_question.png"
+            alt="Chat"
+            maxWidth={300}
+          />
         </div>
       </div>
 
-      <div
-        style={{
-          marginTop: 64,
-          padding: "32px 36px",
-          background: t.paper,
-          border: `1px solid ${t.soft}`,
-          display: "grid",
-          gridTemplateColumns: "1fr 1.4fr",
-          gap: 48,
-          alignItems: "start",
-        }}
-      >
+      <div className="mt-14 grid grid-cols-1 items-start gap-10 border border-soft bg-paper p-6 sm:p-8 lg:grid-cols-[1fr_1.4fr] lg:gap-12 lg:p-9">
         <div>
-          <div
-            style={{
-              fontFamily: t.mono,
-              fontSize: 11,
-              letterSpacing: ".18em",
-              color: t.accent,
-              textTransform: "uppercase",
-              marginBottom: 10,
-            }}
-          >
+          <div className="mb-2.5 font-mono text-[10px] uppercase tracking-[.18em] text-accent sm:text-[11px]">
             Vor allem anderen
           </div>
-          <h3
-            style={{
-              fontFamily: t.serif,
-              fontWeight: 500,
-              fontSize: 34,
-              lineHeight: 1.1,
-              color: t.ink,
-              margin: 0,
-            }}
-          >
+          <h3 className="m-0 font-serif text-2xl font-medium leading-[1.1] text-ink sm:text-[28px] lg:text-[2.125rem]">
             Der erste Call.
           </h3>
         </div>
-        <div style={{ fontSize: 16, lineHeight: 1.65, color: t.slate }}>
-          <p style={{ margin: 0 }}>
-            Bevor du die App überhaupt installierst, gibt es einen Onboarding-Call mit uns. Etwa eine
-            halbe Stunde bis Stunde, je nachdem wie das Gespräch läuft. Vorab schickst du uns einen
-            kurzen Überblick über deine Situation — ein paar Sätze reichen.
+        <div className="text-base leading-[1.65] text-slate">
+          <p className="m-0">
+            Bevor du die App überhaupt installierst, gibt es einen Onboarding-Call mit uns.
+            Etwa eine halbe Stunde bis Stunde, je nachdem wie das Gespräch läuft. Vorab
+            schickst du uns einen kurzen Überblick über deine Situation — ein paar Sätze
+            reichen.
           </p>
-          <p style={{ marginTop: 14 }}>
-            Im Call lernen wir uns gegenseitig kennen, stellen dir das System vor, gehen vielleicht
-            schon den ersten Teil der Anamnese zusammen durch, und richten die App ein. Wir reden
-            über deine Krankheit, was wir erwarten können, was nicht.{" "}
-            <strong style={{ color: t.ink }}>Du entscheidest danach</strong>, ob du teilnehmen willst
-            — und wir entscheiden, ob wir gut helfen können. Wenn es nicht passt, sagen wir das
-            ehrlich.
+          <p className="mt-3.5">
+            Im Call lernen wir uns gegenseitig kennen, stellen dir das System vor, gehen
+            vielleicht schon den ersten Teil der Anamnese zusammen durch, und richten die App
+            ein. Wir reden über deine Krankheit, was wir erwarten können, was nicht.{" "}
+            <strong className="text-ink">Du entscheidest danach</strong>, ob du teilnehmen
+            willst — und wir entscheiden, ob wir gut helfen können. Wenn es nicht passt, sagen
+            wir das ehrlich.
           </p>
         </div>
       </div>
@@ -1048,73 +595,28 @@ export function SectionBegleitung({ t }: { t: Theme }) {
 }
 
 // ─── /methode → Kosten ───────────────────────────────────────────────────
-export function SectionKosten({ t }: { t: Theme }) {
+export function SectionKosten(_: { t: Theme }) {
   return (
-    <Section t={t} kicker="§VIII · Was du dafür einbringst" bg={t.card} divider>
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1.1fr 1fr",
-          gap: 56,
-          marginBottom: 48,
-          alignItems: "end",
-        }}
-      >
-        <h2
-          style={{
-            fontFamily: t.serif,
-            fontWeight: 400,
-            fontSize: 60,
-            lineHeight: 1.03,
-            letterSpacing: "-0.016em",
-            margin: 0,
-            color: t.ink,
-          }}
-        >
+    <Section kicker="§VIII · Was du dafür einbringst" divider className="bg-card">
+      <div className="mb-10 grid grid-cols-1 items-end gap-8 lg:mb-12 lg:grid-cols-[1.1fr_1fr] lg:gap-14">
+        <h2 className="m-0 font-serif text-[2rem] font-normal leading-[1.05] tracking-[-0.016em] text-ink sm:text-[2.75rem] lg:text-[3.75rem]">
           Drei Dinge brauchen wir von dir. Wir sagen vorab, wie viel.
         </h2>
-        <p style={{ fontSize: 17, lineHeight: 1.6, color: t.slate, margin: 0 }}>
-          Wenn deine Energie knapp ist, hilft Vorhersehbarkeit. Hier ist, womit du rechnen kannst —
-          kein Schock, keine versteckten Aufwände.
+        <p className="m-0 text-base leading-[1.6] text-slate sm:text-[17px]">
+          Wenn deine Energie knapp ist, hilft Vorhersehbarkeit. Hier ist, womit du rechnen
+          kannst — kein Schock, keine versteckten Aufwände.
         </p>
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24 }}>
-        <div
-          style={{
-            background: t.paper,
-            border: `1px solid ${t.soft}`,
-            padding: 28,
-            display: "flex",
-            flexDirection: "column",
-            gap: 16,
-          }}
-        >
-          <div
-            style={{
-              fontFamily: t.mono,
-              fontSize: 11,
-              letterSpacing: ".18em",
-              color: t.accent,
-              textTransform: "uppercase",
-            }}
-          >
-            Zeit
-          </div>
-          <h3
-            style={{
-              fontFamily: t.serif,
-              fontWeight: 500,
-              fontSize: 28,
-              lineHeight: 1.15,
-              color: t.ink,
-              margin: 0,
-            }}
-          >
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+        {/* Card 1 — Zeit */}
+        <div className="flex flex-col gap-4 border border-soft bg-paper p-6 sm:p-7">
+          <div className="kicker">Zeit</div>
+          <h3 className="m-0 font-serif text-[1.5rem] font-medium leading-[1.15] text-ink sm:text-[1.75rem]">
             Die intensivste Phase sind die ersten zwei Wochen.
           </h3>
 
-          <div style={{ display: "flex", flexDirection: "column", gap: 12, marginTop: 4 }}>
+          <div className="mt-1 flex flex-col gap-3">
             {([
               ["~ 1 Std.", "Telefonat zum Einstieg"],
               ["~ 2 Std.", "Anamnese in der App (in mehreren kurzen Sitzungen)"],
@@ -1122,175 +624,75 @@ export function SectionKosten({ t }: { t: Theme }) {
             ] as const).map(([big, lab], i) => (
               <div
                 key={i}
-                style={{ display: "grid", gridTemplateColumns: "80px 1fr", gap: 14, alignItems: "baseline" }}
+                className="grid grid-cols-[80px_1fr] items-baseline gap-3.5"
               >
-                <div
-                  style={{
-                    fontFamily: t.serif,
-                    fontWeight: 500,
-                    fontSize: 22,
-                    color: t.ink,
-                    fontVariantNumeric: "tabular-nums",
-                  }}
-                >
+                <div className="font-serif text-lg font-medium text-ink tabular-nums sm:text-[22px]">
                   {big}
                 </div>
-                <div style={{ fontSize: 14, color: t.slate, lineHeight: 1.45 }}>{lab}</div>
+                <div className="text-sm leading-[1.45] text-slate">{lab}</div>
               </div>
             ))}
           </div>
 
-          <p
-            style={{
-              fontFamily: t.serif,
-              fontStyle: "italic",
-              fontSize: 15,
-              color: t.mute,
-              lineHeight: 1.55,
-              margin: 0,
-              paddingTop: 14,
-              borderTop: `1px dashed ${t.soft}`,
-            }}
-          >
-            Du kannst die Anamnese aufteilen, wie du willst. Heute zehn Minuten, übermorgen zwanzig.
-            Es gibt keinen Termindruck von unserer Seite.
+          <p className="m-0 border-t border-dashed border-soft pt-3.5 font-serif text-[15px] italic leading-[1.55] text-mute">
+            Du kannst die Anamnese aufteilen, wie du willst. Heute zehn Minuten, übermorgen
+            zwanzig. Es gibt keinen Termindruck von unserer Seite.
           </p>
 
-          <p style={{ fontSize: 14, color: t.slate, lineHeight: 1.55, margin: 0 }}>
-            Danach: deutlich weniger. Kurze Rückfragen per Push, optional ein kurzes Tagebuch (wenige
-            Minuten am Tag, wenn überhaupt). Plus die Facharzttermine, die du sowieso haben würdest.
+          <p className="m-0 text-sm leading-[1.55] text-slate">
+            Danach: deutlich weniger. Kurze Rückfragen per Push, optional ein kurzes Tagebuch
+            (wenige Minuten am Tag, wenn überhaupt). Plus die Facharzttermine, die du sowieso
+            haben würdest.
           </p>
         </div>
 
-        <div
-          style={{
-            background: t.paper,
-            border: `1px solid ${t.soft}`,
-            padding: 28,
-            display: "flex",
-            flexDirection: "column",
-            gap: 16,
-          }}
-        >
-          <div
-            style={{
-              fontFamily: t.mono,
-              fontSize: 11,
-              letterSpacing: ".18em",
-              color: t.accent,
-              textTransform: "uppercase",
-            }}
-          >
-            Kraft
-          </div>
-          <h3
-            style={{
-              fontFamily: t.serif,
-              fontWeight: 500,
-              fontSize: 28,
-              lineHeight: 1.15,
-              color: t.ink,
-              margin: 0,
-            }}
-          >
+        {/* Card 2 — Kraft */}
+        <div className="flex flex-col gap-4 border border-soft bg-paper p-6 sm:p-7">
+          <div className="kicker">Kraft</div>
+          <h3 className="m-0 font-serif text-[1.5rem] font-medium leading-[1.15] text-ink sm:text-[1.75rem]">
             Anamnese ist anstrengend. Wir wissen das.
           </h3>
 
-          <p style={{ fontSize: 15, color: t.slate, lineHeight: 1.6, margin: 0 }}>
-            Die App ist so gebaut, dass du jederzeit pausieren und später weitermachen kannst, ohne
-            von vorne anzufangen. Wenn du heute keine Energie hast, läuft im Hintergrund trotzdem
-            etwas — Literaturrecherche, Befundordnung.
+          <p className="m-0 text-[15px] leading-[1.6] text-slate">
+            Die App ist so gebaut, dass du jederzeit pausieren und später weitermachen
+            kannst, ohne von vorne anzufangen. Wenn du heute keine Energie hast, läuft im
+            Hintergrund trotzdem etwas — Literaturrecherche, Befundordnung.
           </p>
 
-          <div
-            style={{
-              padding: 16,
-              background: t.warm,
-              borderLeft: `3px solid ${t.accent}`,
-              fontFamily: t.serif,
-              fontStyle: "italic",
-              fontSize: 16,
-              color: t.ink,
-              lineHeight: 1.5,
-            }}
-          >
+          <div className="border-l-[3px] border-accent bg-warm p-4 font-serif text-base italic leading-[1.5] text-ink">
             Du verlierst keinen Tag, nur weil du einen schlechten Tag hast.
           </div>
 
-          <p style={{ fontSize: 14, color: t.slate, lineHeight: 1.55, margin: 0 }}>
-            Wenn eine andere Person dich unterstützt — Partner:in, Eltern, erwachsene Kinder — können
-            sie viele Schritte übernehmen oder vorbereiten: Anamnese-Antworten vorausfüllen (Lücken
-            füllst du später), Dokumente von Ärzt:innen anfordern, mit uns telefonieren, Termine
-            ausmachen. <strong style={{ color: t.ink }}>Du musst nicht alles selbst tippen.</strong>
+          <p className="m-0 text-sm leading-[1.55] text-slate">
+            Wenn eine andere Person dich unterstützt — Partner:in, Eltern, erwachsene Kinder
+            — können sie viele Schritte übernehmen oder vorbereiten: Anamnese-Antworten
+            vorausfüllen (Lücken füllst du später), Dokumente von Ärzt:innen anfordern, mit
+            uns telefonieren, Termine ausmachen.{" "}
+            <strong className="text-ink">Du musst nicht alles selbst tippen.</strong>
           </p>
         </div>
 
-        <div
-          style={{
-            background: t.paper,
-            border: `1px solid ${t.soft}`,
-            padding: 28,
-            display: "flex",
-            flexDirection: "column",
-            gap: 16,
-          }}
-        >
-          <div
-            style={{
-              fontFamily: t.mono,
-              fontSize: 11,
-              letterSpacing: ".18em",
-              color: t.accent,
-              textTransform: "uppercase",
-            }}
-          >
-            Geld
-          </div>
+        {/* Card 3 — Geld */}
+        <div className="flex flex-col gap-4 border border-soft bg-paper p-6 sm:p-7">
+          <div className="kicker">Geld</div>
 
-          <div
-            style={{
-              fontFamily: t.serif,
-              fontWeight: 500,
-              fontSize: 96,
-              lineHeight: 0.9,
-              letterSpacing: "-0.03em",
-              color: t.ink,
-              fontVariantNumeric: "tabular-nums",
-              marginTop: 4,
-            }}
-          >
+          <div className="mt-1 font-serif text-[4.5rem] font-medium leading-[0.9] tracking-[-0.03em] text-ink tabular-nums sm:text-[5.5rem] lg:text-[6rem]">
             0&nbsp;€
           </div>
-          <div
-            style={{
-              fontFamily: t.serif,
-              fontSize: 18,
-              color: t.slate,
-              lineHeight: 1.4,
-              fontStyle: "italic",
-            }}
-          >
-            in der Alpha. Inklusive Data Scientist, allen Recherchezyklen, allen Termin-Briefings,
-            allen Calls.
+          <div className="font-serif text-base italic leading-[1.4] text-slate sm:text-lg">
+            in der Alpha. Inklusive Data Scientist, allen Recherchezyklen, allen
+            Termin-Briefings, allen Calls.
           </div>
 
-          <p style={{ fontSize: 14, color: t.slate, lineHeight: 1.6, margin: 0 }}>
+          <p className="m-0 text-sm leading-[1.6] text-slate">
             Wir brauchen in dieser Phase Tester:innen, nicht Kund:innen. Das Programm ist aus
-            Eigenmitteln finanziert, wir müssen aktuell nicht verdienen — wir müssen lernen, was an
-            echten Fällen funktioniert.
+            Eigenmitteln finanziert, wir müssen aktuell nicht verdienen — wir müssen lernen,
+            was an echten Fällen funktioniert.
           </p>
 
-          <div
-            style={{
-              padding: 16,
-              border: `1px dashed ${t.ink}`,
-              fontSize: 14,
-              color: t.ink,
-              lineHeight: 1.6,
-            }}
-          >
-            <strong>Spätere Phasen werden kostenpflichtig sein.</strong> Wir sagen das jetzt, damit
-            es kein Schock wird, wenn das Modell sich ändert.
+          <div className="border border-dashed border-ink p-4 text-sm leading-[1.6] text-ink">
+            <strong>Spätere Phasen werden kostenpflichtig sein.</strong> Wir sagen das jetzt,
+            damit es kein Schock wird, wenn das Modell sich ändert.
           </div>
         </div>
       </div>
@@ -1299,99 +701,46 @@ export function SectionKosten({ t }: { t: Theme }) {
 }
 
 // ─── /transparenz → Daten ────────────────────────────────────────────────
-export function SectionDaten({ t }: { t: Theme }) {
+export function SectionDaten(_: { t: Theme }) {
   return (
-    <Section t={t} kicker="§IX · Wie wir mit deinen Daten umgehen — ehrlich" divider>
-      <div style={{ display: "grid", gridTemplateColumns: "1.05fr 1fr", gap: 56, marginBottom: 48 }}>
-        <h2
-          style={{
-            fontFamily: t.serif,
-            fontWeight: 400,
-            fontSize: 58,
-            lineHeight: 1.04,
-            letterSpacing: "-0.015em",
-            margin: 0,
-            color: t.ink,
-          }}
-        >
+    <Section kicker="§IX · Wie wir mit deinen Daten umgehen — ehrlich" divider>
+      <div className="mb-10 grid grid-cols-1 gap-8 lg:mb-12 lg:grid-cols-[1.05fr_1fr] lg:gap-14">
+        <h2 className="m-0 font-serif text-[2rem] font-normal leading-[1.05] tracking-[-0.015em] text-ink sm:text-[2.75rem] lg:text-[3.625rem]">
           Wir können dir nur helfen, wenn wir mit deinen Daten arbeiten.
         </h2>
-        <p
-          style={{
-            fontFamily: t.serif,
-            fontSize: 19,
-            lineHeight: 1.5,
-            color: t.slate,
-            alignSelf: "end",
-            margin: 0,
-          }}
-        >
-          Und zwar nicht oberflächlich, sondern intensiv: vollständige Anamnese, alle Vor-Befunde,
-          alles, was uns hilft, deinen Fall zu verstehen. Das ist die Voraussetzung dafür, dass das,
-          was wir versprechen, überhaupt möglich ist.
+        <p className="m-0 font-serif text-lg leading-[1.5] text-slate sm:self-end sm:text-xl lg:text-[19px]">
+          Und zwar nicht oberflächlich, sondern intensiv: vollständige Anamnese, alle
+          Vor-Befunde, alles, was uns hilft, deinen Fall zu verstehen. Das ist die
+          Voraussetzung dafür, dass das, was wir versprechen, überhaupt möglich ist.
         </p>
       </div>
 
-      <div
-        style={{
-          background: t.warm,
-          borderLeft: `3px solid ${t.accent}`,
-          padding: "32px 36px",
-          marginBottom: 32,
-        }}
-      >
-        <div
-          style={{
-            fontFamily: t.mono,
-            fontSize: 11,
-            letterSpacing: ".18em",
-            color: t.accent,
-            textTransform: "uppercase",
-            marginBottom: 14,
-          }}
-        >
+      <div className="mb-8 border-l-[3px] border-accent bg-warm p-6 sm:p-8 lg:p-9">
+        <div className="mb-3.5 font-mono text-[10px] uppercase tracking-[.18em] text-accent sm:text-[11px]">
           Ehrlich vorab — externe Anbieter
         </div>
-        <p style={{ fontFamily: t.serif, fontSize: 19, lineHeight: 1.55, color: t.ink, margin: 0 }}>
-          Wir nutzen für die Analyse externe Werkzeuge — darunter Sprachmodelle und Recherche-Systeme
-          von Anbietern wie <strong>OpenAI</strong> oder <strong>Google</strong>. Diese Werkzeuge
-          sind aktuell das Beste, was es für diese Aufgabe gibt. Sie nicht zu nutzen, wäre auf deine
-          Kosten — und das wollen wir nicht.
+        <p className="m-0 font-serif text-lg leading-[1.55] text-ink sm:text-xl lg:text-[19px]">
+          Wir nutzen für die Analyse externe Werkzeuge — darunter Sprachmodelle und
+          Recherche-Systeme von Anbietern wie <strong>OpenAI</strong> oder{" "}
+          <strong>Google</strong>. Diese Werkzeuge sind aktuell das Beste, was es für diese
+          Aufgabe gibt. Sie nicht zu nutzen, wäre auf deine Kosten — und das wollen wir nicht.
         </p>
-        <p style={{ fontSize: 16, lineHeight: 1.6, color: t.slate, margin: "14px 0 0" }}>
-          Das bedeutet aber auch: deine Daten laufen in einem gewissen Umfang durch die Server dieser
-          Anbieter.{" "}
+        <p className="mt-3.5 text-base leading-[1.6] text-slate">
+          Das bedeutet aber auch: deine Daten laufen in einem gewissen Umfang durch die Server
+          dieser Anbieter.{" "}
           <strong>
-            Wir sagen das offen, weil wir nicht wollen, dass du es später irgendwo herausfindest und
-            dich überrumpelt fühlst.
+            Wir sagen das offen, weil wir nicht wollen, dass du es später irgendwo
+            herausfindest und dich überrumpelt fühlst.
           </strong>
         </p>
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24 }}>
-        <div style={{ background: t.card, border: `1px solid ${t.soft}`, padding: 28 }}>
-          <div
-            style={{
-              fontFamily: t.mono,
-              fontSize: 11,
-              letterSpacing: ".14em",
-              color: t.accent,
-              textTransform: "uppercase",
-              marginBottom: 14,
-            }}
-          >
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+        <div className="border border-soft bg-card p-6 sm:p-7">
+          <div className="mb-3.5 font-mono text-[10px] uppercase tracking-[.14em] text-accent sm:text-[11px]">
             Was wir konkret zusichern können
           </div>
-          <ul
-            style={{
-              listStyle: "none",
-              padding: 0,
-              margin: 0,
-              display: "flex",
-              flexDirection: "column",
-              gap: 12,
-            }}
-          >
+          <ul className="m-0 flex list-none flex-col gap-3 p-0">
             {[
               "Wir nutzen deine Daten ausschließlich für deinen Fall.",
               "Wir verkaufen sie nicht. Geben sie nicht weiter. Nutzen sie nicht für Werbung. Nicht für unspezifisches KI-Training.",
@@ -1401,38 +750,20 @@ export function SectionDaten({ t }: { t: Theme }) {
             ].map((it, i) => (
               <li
                 key={i}
-                style={{ display: "flex", gap: 12, fontSize: 15, lineHeight: 1.55, color: t.ink }}
+                className="flex gap-3 text-[15px] leading-[1.55] text-ink"
               >
-                <span style={{ color: t.accent, fontFamily: t.mono, fontSize: 14, width: 14 }}>✓</span>
-                <span style={{ flex: 1 }}>{it}</span>
+                <span className="w-3.5 font-mono text-sm text-accent">✓</span>
+                <span className="flex-1">{it}</span>
               </li>
             ))}
           </ul>
         </div>
 
-        <div style={{ background: t.card, border: `1px solid ${t.soft}`, padding: 28 }}>
-          <div
-            style={{
-              fontFamily: t.mono,
-              fontSize: 11,
-              letterSpacing: ".14em",
-              color: t.mute,
-              textTransform: "uppercase",
-              marginBottom: 14,
-            }}
-          >
+        <div className="border border-soft bg-card p-6 sm:p-7">
+          <div className="mb-3.5 font-mono text-[10px] uppercase tracking-[.14em] text-mute sm:text-[11px]">
             Was wir nicht versprechen können
           </div>
-          <ul
-            style={{
-              listStyle: "none",
-              padding: 0,
-              margin: 0,
-              display: "flex",
-              flexDirection: "column",
-              gap: 12,
-            }}
-          >
+          <ul className="m-0 flex list-none flex-col gap-3 p-0">
             {[
               "Wir sind keine zugelassene medizinische Versorgung. Wir haben nicht die formalen Datenschutz-Prozesse einer Arztpraxis.",
               "Theoretisch könnten Daten bei einem Hackerangriff auf einen unserer externen Anbieter abfließen. Wir halten das für unwahrscheinlich, aber unmöglich ist nichts, was im Internet liegt.",
@@ -1441,46 +772,24 @@ export function SectionDaten({ t }: { t: Theme }) {
             ].map((it, i) => (
               <li
                 key={i}
-                style={{ display: "flex", gap: 12, fontSize: 15, lineHeight: 1.55, color: t.ink }}
+                className="flex gap-3 text-[15px] leading-[1.55] text-ink"
               >
-                <span style={{ color: t.mute, fontFamily: t.mono, fontSize: 14, width: 14 }}>·</span>
-                <span style={{ flex: 1 }}>{it}</span>
+                <span className="w-3.5 font-mono text-sm text-mute">·</span>
+                <span className="flex-1">{it}</span>
               </li>
             ))}
           </ul>
         </div>
       </div>
 
-      <div
-        style={{
-          marginTop: 28,
-          padding: "20px 28px",
-          border: `1px dashed ${t.ink}`,
-          display: "grid",
-          gridTemplateColumns: "auto 1fr",
-          gap: 24,
-          alignItems: "center",
-          fontSize: 15,
-          color: t.slate,
-          lineHeight: 1.6,
-        }}
-      >
-        <span
-          style={{
-            fontFamily: t.mono,
-            fontSize: 11,
-            letterSpacing: ".18em",
-            color: t.accent,
-            textTransform: "uppercase",
-            whiteSpace: "nowrap",
-          }}
-        >
+      <div className="mt-7 grid grid-cols-1 items-center gap-5 border border-dashed border-ink p-5 text-[15px] leading-[1.6] text-slate sm:grid-cols-[auto_1fr] sm:gap-6 sm:px-7">
+        <span className="whitespace-nowrap font-mono text-[10px] uppercase tracking-[.18em] text-accent sm:text-[11px]">
           Was du zurückhalten kannst
         </span>
         <span>
-          Du kannst einzelne Themen oder Dokumente von vornherein aussparen. Sei dir aber bewusst:
-          je weniger wir haben, desto weniger können wir suchen. Wo du die Grenze ziehst, entscheidest
-          du.
+          Du kannst einzelne Themen oder Dokumente von vornherein aussparen. Sei dir aber
+          bewusst: je weniger wir haben, desto weniger können wir suchen. Wo du die Grenze
+          ziehst, entscheidest du.
         </span>
       </div>
     </Section>
@@ -1488,136 +797,84 @@ export function SectionDaten({ t }: { t: Theme }) {
 }
 
 // ─── /transparenz → Alpha ────────────────────────────────────────────────
-export function SectionAlpha({ t }: { t: Theme }) {
+export function SectionAlpha(_: { t: Theme }) {
   return (
-    <Section t={t} kicker="§X · Wo wir gerade stehen" bg={t.card} divider>
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          gap: 56,
-          marginBottom: 48,
-          alignItems: "end",
-        }}
-      >
-        <h2
-          style={{
-            fontFamily: t.serif,
-            fontWeight: 400,
-            fontSize: 60,
-            lineHeight: 1.03,
-            letterSpacing: "-0.016em",
-            margin: 0,
-            color: t.ink,
-          }}
-        >
+    <Section kicker="§X · Wo wir gerade stehen" divider className="bg-card">
+      <div className="mb-10 grid grid-cols-1 items-end gap-8 lg:mb-12 lg:grid-cols-2 lg:gap-14">
+        <h2 className="m-0 font-serif text-[2rem] font-normal leading-[1.05] tracking-[-0.016em] text-ink sm:text-[2.75rem] lg:text-[3.75rem]">
           Wir sind in einem frühen Stadium. Hier ist, wo genau.
         </h2>
-        <p style={{ fontSize: 16, lineHeight: 1.6, color: t.slate, margin: 0 }}>
-          Diese Sektion ist offener, als auf Customer-Pages üblich. Wir glauben: Reziprozität ist im
-          Frühstadium das stärkere Vertrauenssignal als Hochglanz.
+        <p className="m-0 text-base leading-[1.6] text-slate sm:text-[17px]">
+          Diese Sektion ist offener, als auf Customer-Pages üblich. Wir glauben:
+          Reziprozität ist im Frühstadium das stärkere Vertrauenssignal als Hochglanz.
         </p>
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "320px 1fr", gap: 56, alignItems: "start" }}>
-        <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
+      <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-[320px_1fr] lg:gap-14">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 lg:grid-cols-1">
           {([
             ["1", "ernster Fall begleitet", "der eigene Bouldering-Fall (§IV.b)"],
             ["10", "Validierungs-Fälle gesucht", "die nächsten — du könntest einer sein"],
             ["0 €", "Kosten in der Alpha", "kostenpflichtig erst in späteren Phasen"],
           ] as const).map(([n, l, sub], i) => (
-            <div key={i} style={{ background: t.paper, border: `1px solid ${t.ink}`, padding: 22 }}>
-              <div
-                style={{
-                  fontFamily: t.serif,
-                  fontWeight: 500,
-                  fontSize: 44,
-                  lineHeight: 1,
-                  letterSpacing: "-0.02em",
-                  color: t.ink,
-                  fontVariantNumeric: "tabular-nums",
-                }}
-              >
+            <div key={i} className="border border-ink bg-paper p-5">
+              <div className="font-serif text-[2rem] font-medium leading-none tracking-[-0.02em] text-ink tabular-nums sm:text-[2.5rem] lg:text-[2.75rem]">
                 {n}
               </div>
-              <div style={{ fontSize: 14, marginTop: 6, color: t.ink, fontWeight: 500 }}>{l}</div>
-              <div style={{ fontSize: 12, color: t.mute, marginTop: 4 }}>{sub}</div>
+              <div className="mt-1.5 text-sm font-medium text-ink">{l}</div>
+              <div className="mt-1 text-xs text-mute">{sub}</div>
             </div>
           ))}
         </div>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-          <p style={{ fontSize: 17, lineHeight: 1.65, color: t.slate, margin: 0 }}>
-            Konkret: wir haben einen ersten ernsten Fall begleitet (siehe §IV.b), in dem die Methode
-            funktioniert hat. Jetzt validieren wir, ob das reproduzierbar ist — an den nächsten zehn
-            Fällen. <strong style={{ color: t.ink }}>Du bist einer davon, wenn du teilnimmst.</strong>
+        <div className="flex flex-col gap-6">
+          <p className="m-0 text-base leading-[1.65] text-slate sm:text-[17px]">
+            Konkret: wir haben einen ersten ernsten Fall begleitet (siehe §IV.b), in dem die
+            Methode funktioniert hat. Jetzt validieren wir, ob das reproduzierbar ist — an den
+            nächsten zehn Fällen.{" "}
+            <strong className="text-ink">Du bist einer davon, wenn du teilnimmst.</strong>
           </p>
-          <p style={{ fontSize: 17, lineHeight: 1.65, color: t.slate, margin: 0 }}>
+          <p className="m-0 text-base leading-[1.65] text-slate sm:text-[17px]">
             Davor haben wir die Methode an simulierten Fällen aus Medizinstudium-Unterlagen
-            durchgespielt. Das ist nicht dasselbe wie die echte Welt, aber es ist die Vorarbeit, auf
-            der wir aufsetzen.
+            durchgespielt. Das ist nicht dasselbe wie die echte Welt, aber es ist die
+            Vorarbeit, auf der wir aufsetzen.
           </p>
-          <p style={{ fontSize: 17, lineHeight: 1.65, color: t.slate, margin: 0 }}>
-            In dieser Phase ist vieles noch handgemacht. Der Algorithmus übernimmt die Last der
-            Recherche, aber jeder Schritt wird von einer:m Data Scientist kontrolliert. Das ist nicht
-            eine Notlösung — das ist angemessen für ein Programm in der Validierung. Mit größerer
-            Kohorte später wird die Begleitung notwendigerweise stärker automatisiert.{" "}
-            <strong style={{ color: t.ink }}>
-              Wer jetzt mitmacht, bekommt eine Form der Aufmerksamkeit, die in zwei Jahren so nicht
-              mehr existieren wird.
+          <p className="m-0 text-base leading-[1.65] text-slate sm:text-[17px]">
+            In dieser Phase ist vieles noch handgemacht. Der Algorithmus übernimmt die Last
+            der Recherche, aber jeder Schritt wird von einer:m Data Scientist kontrolliert.
+            Das ist nicht eine Notlösung — das ist angemessen für ein Programm in der
+            Validierung. Mit größerer Kohorte später wird die Begleitung notwendigerweise
+            stärker automatisiert.{" "}
+            <strong className="text-ink">
+              Wer jetzt mitmacht, bekommt eine Form der Aufmerksamkeit, die in zwei Jahren so
+              nicht mehr existieren wird.
             </strong>
           </p>
 
-          <div
-            style={{
-              padding: "20px 24px",
-              background: t.warm,
-              borderLeft: `3px solid ${t.accent}`,
-              fontFamily: t.serif,
-              fontSize: 19,
-              fontStyle: "italic",
-              lineHeight: 1.5,
-              color: t.ink,
-            }}
-          >
-            Warum machen wir das in dieser Form? Weil wir nicht zwei Jahre warten wollen, bis Menschen,
-            die heute krank sind, Hilfe bekommen können. Und weil wir aus echten Fällen lernen
-            müssen, was wir aus simulierten nicht lernen können.
+          <div className="border-l-[3px] border-accent bg-warm px-5 py-5 font-serif text-base italic leading-[1.5] text-ink sm:px-6 sm:text-lg lg:text-[19px]">
+            Warum machen wir das in dieser Form? Weil wir nicht zwei Jahre warten wollen, bis
+            Menschen, die heute krank sind, Hilfe bekommen können. Und weil wir aus echten
+            Fällen lernen müssen, was wir aus simulierten nicht lernen können.
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 28 }}>
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-7">
             <div>
-              <div
-                style={{
-                  fontFamily: t.mono,
-                  fontSize: 11,
-                  letterSpacing: ".14em",
-                  color: t.accent,
-                  textTransform: "uppercase",
-                }}
-              >
+              <div className="font-mono text-[10px] uppercase tracking-[.14em] text-accent sm:text-[11px]">
                 Was wir von dir brauchen
               </div>
-              <p style={{ fontSize: 15, lineHeight: 1.6, color: t.slate, marginTop: 8 }}>
-                Geduld bei Rauheiten der App, ehrliches Feedback, Bereitschaft zu Terminen mit uns.
+              <p className="mt-2 text-[15px] leading-[1.6] text-slate">
+                Geduld bei Rauheiten der App, ehrliches Feedback, Bereitschaft zu Terminen
+                mit uns.
               </p>
             </div>
             <div>
-              <div
-                style={{
-                  fontFamily: t.mono,
-                  fontSize: 11,
-                  letterSpacing: ".14em",
-                  color: t.accent,
-                  textTransform: "uppercase",
-                }}
-              >
+              <div className="font-mono text-[10px] uppercase tracking-[.14em] text-accent sm:text-[11px]">
                 Wie wir finanziert sind
               </div>
-              <p style={{ fontSize: 15, lineHeight: 1.6, color: t.slate, marginTop: 8 }}>
-                Aus Eigenmitteln. Keine Investor:innen, die uns zu Wachstumsmetriken treiben. Genau
-                deshalb können wir die Alpha kostenlos anbieten und uns die Zeit nehmen, die die
-                Methode braucht.
+              <p className="mt-2 text-[15px] leading-[1.6] text-slate">
+                Aus Eigenmitteln. Keine Investor:innen, die uns zu Wachstumsmetriken treiben.
+                Genau deshalb können wir die Alpha kostenlos anbieten und uns die Zeit
+                nehmen, die die Methode braucht.
               </p>
             </div>
           </div>
@@ -1630,39 +887,22 @@ export function SectionAlpha({ t }: { t: Theme }) {
 // ─── /ueber-uns → Wer wir sind ───────────────────────────────────────────
 export function SectionWerWirSind({ t }: { t: Theme }) {
   return (
-    <Section t={t} kicker="§XI · Wer das hier macht" divider>
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1.05fr 1fr",
-          gap: 56,
-          marginBottom: 48,
-          alignItems: "end",
-        }}
-      >
-        <h2
-          style={{
-            fontFamily: t.serif,
-            fontWeight: 400,
-            fontSize: 60,
-            lineHeight: 1.04,
-            letterSpacing: "-0.016em",
-            margin: 0,
-            color: t.ink,
-          }}
-        >
+    <Section kicker="§XI · Wer das hier macht" divider>
+      <div className="mb-10 grid grid-cols-1 items-end gap-8 lg:mb-12 lg:grid-cols-[1.05fr_1fr] lg:gap-14">
+        <h2 className="m-0 font-serif text-[2rem] font-normal leading-[1.05] tracking-[-0.016em] text-ink sm:text-[2.75rem] lg:text-[3.75rem]">
           {t.brand} wird von Tom und Christoph entwickelt.
         </h2>
-        <p style={{ fontSize: 16, lineHeight: 1.6, color: t.slate, margin: 0 }}>
-          Reflektierte Patient:innen googeln sowieso — wir wollen die Zeit sparen, indem wir hier
-          sagen, was zu wissen ist.
+        <p className="m-0 text-base leading-[1.6] text-slate sm:text-[17px]">
+          Reflektierte Patient:innen googeln sowieso — wir wollen die Zeit sparen, indem wir
+          hier sagen, was zu wissen ist.
         </p>
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, marginBottom: 40 }}>
+      <div className="mb-10 grid grid-cols-1 gap-6 md:grid-cols-2">
         {[
           {
             name: "Tom",
+            photo: "/team_tom",
             role: "Co-Founder · Data Science",
             blurb:
               "Über zehn Jahre Arbeit an komplexen Datensystemen für große Unternehmen — KI-Anwendungen, Information Retrieval, Arbeit mit großen wissenschaftlichen Datenbanken.",
@@ -1670,66 +910,41 @@ export function SectionWerWirSind({ t }: { t: Theme }) {
           },
           {
             name: "Christoph",
+            photo: "/team_christoph",
             role: "Co-Founder · Data Science",
             blurb:
-              "Über zehn Jahre Arbeit an komplexen Datensystemen für große Unternehmen — KI-Anwendungen, Information Retrieval, Arbeit mit großen wissenschaftlichen Datenbanken.",
+              "Mehr als ein Jahrzehnt im Engineering von KI- und Such-Systemen — von industrieller Datenverarbeitung bis hin zur Arbeit mit umfangreichen wissenschaftlichen Korpora.",
             note: null as string | null,
           },
         ].map((p, i) => (
           <div
             key={i}
-            style={{
-              background: t.card,
-              border: `1px solid ${t.soft}`,
-              padding: 28,
-              display: "grid",
-              gridTemplateColumns: "180px 1fr",
-              gap: 24,
-              alignItems: "start",
-            }}
+            className="grid grid-cols-1 items-start gap-5 border border-soft bg-card p-5 sm:grid-cols-[140px_1fr] sm:gap-6 sm:p-6 lg:grid-cols-[180px_1fr]"
           >
-            <PhotoSlot
-              label={`Echtfoto: ${p.name}, ruhiger Halbporträt-Look, ohne Berufs-Cliché.`}
-              aspect="4/5"
-              tone={t.photoTone}
-            />
+            <div className="max-w-[180px]">
+              <picture>
+                <source srcSet={`${p.photo}.webp`} type="image/webp" />
+                <img
+                  src={`${p.photo}.jpg`}
+                  alt={`${p.name}, Halbporträt`}
+                  loading="lazy"
+                  decoding="async"
+                  width={600}
+                  height={750}
+                  className="block aspect-[4/5] w-full bg-soft object-cover"
+                />
+              </picture>
+            </div>
             <div>
-              <div
-                style={{
-                  fontFamily: t.mono,
-                  fontSize: 11,
-                  letterSpacing: ".14em",
-                  textTransform: "uppercase",
-                  color: t.accent,
-                }}
-              >
+              <div className="font-mono text-[10px] uppercase tracking-[.14em] text-accent sm:text-[11px]">
                 {p.role}
               </div>
-              <div
-                style={{
-                  fontFamily: t.serif,
-                  fontSize: 28,
-                  lineHeight: 1.15,
-                  marginTop: 6,
-                  color: t.ink,
-                }}
-              >
+              <div className="mt-1.5 font-serif text-2xl leading-[1.15] text-ink sm:text-[28px]">
                 {p.name}
               </div>
-              <p style={{ fontSize: 14, color: t.slate, lineHeight: 1.55, marginTop: 10 }}>{p.blurb}</p>
+              <p className="mt-2.5 text-sm leading-[1.55] text-slate">{p.blurb}</p>
               {p.note && (
-                <p
-                  style={{
-                    fontSize: 13,
-                    color: t.mute,
-                    lineHeight: 1.55,
-                    fontStyle: "italic",
-                    fontFamily: t.serif,
-                    marginTop: 10,
-                    paddingTop: 10,
-                    borderTop: `1px dashed ${t.soft}`,
-                  }}
-                >
+                <p className="mt-2.5 border-t border-dashed border-soft pt-2.5 font-serif text-[13px] italic leading-[1.55] text-mute">
                   {p.note}
                 </p>
               )}
@@ -1738,139 +953,64 @@ export function SectionWerWirSind({ t }: { t: Theme }) {
         ))}
       </div>
 
-      <div
-        style={{
-          marginBottom: 40,
-          padding: "28px 32px",
-          background: t.paper,
-          borderLeft: `3px solid ${t.accent}`,
-        }}
-      >
-        <div
-          style={{
-            fontFamily: t.mono,
-            fontSize: 11,
-            letterSpacing: ".18em",
-            color: t.accent,
-            textTransform: "uppercase",
-            marginBottom: 10,
-          }}
-        >
+      <div className="mb-10 border-l-[3px] border-accent bg-paper p-6 sm:p-8">
+        <div className="mb-2.5 font-mono text-[10px] uppercase tracking-[.18em] text-accent sm:text-[11px]">
           Warum wir das machen
         </div>
-        <p style={{ fontFamily: t.serif, fontSize: 21, lineHeight: 1.5, color: t.ink, margin: 0 }}>
-          Wir wollen irgendwann nicht mehr Software für Konzerne bauen, sondern für Menschen, denen
-          wir tatsächlich helfen können.
+        <p className="m-0 font-serif text-lg leading-[1.5] text-ink sm:text-xl lg:text-[21px]">
+          Wir wollen irgendwann nicht mehr Software für Konzerne bauen, sondern für Menschen,
+          denen wir tatsächlich helfen können.
         </p>
-        <p style={{ fontSize: 16, lineHeight: 1.6, color: t.slate, margin: "14px 0 0" }}>
-          Wir sind selbst betroffen — nicht im Sinne einer schweren chronischen Krankheit, aber genug,
-          um die Ohnmacht zu kennen, die kommt, wenn niemand sagen kann, was los ist.
+        <p className="mt-3.5 text-base leading-[1.6] text-slate">
+          Wir sind selbst betroffen — nicht im Sinne einer schweren chronischen Krankheit,
+          aber genug, um die Ohnmacht zu kennen, die kommt, wenn niemand sagen kann, was los
+          ist.
         </p>
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1.6fr", gap: 48 }}>
+      <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_1.6fr] lg:gap-12">
         <div>
-          <div
-            style={{
-              fontFamily: t.mono,
-              fontSize: 11,
-              letterSpacing: ".18em",
-              color: t.accent,
-              textTransform: "uppercase",
-              marginBottom: 12,
-            }}
-          >
-            Was wir nicht haben — und ehrlich nicht haben
-          </div>
-          <h3
-            style={{
-              fontFamily: t.serif,
-              fontWeight: 500,
-              fontSize: 30,
-              lineHeight: 1.1,
-              color: t.ink,
-              margin: 0,
-            }}
-          >
+          <div className="kicker mb-3">Was wir nicht haben — und ehrlich nicht haben</div>
+          <h3 className="m-0 font-serif text-[1.5rem] font-medium leading-[1.1] text-ink sm:text-[1.75rem] lg:text-[1.875rem]">
             Klein, eigenfinanziert, ohne Beirat.
           </h3>
         </div>
-        <ul
-          style={{
-            listStyle: "none",
-            padding: 0,
-            margin: 0,
-            display: "flex",
-            flexDirection: "column",
-            gap: 16,
-          }}
-        >
+        <ul className="m-0 flex list-none flex-col gap-4 p-0">
           {([
             [
               "Keine Ärzt:innen im Gründungsteam.",
               "Das sind wir nicht und behaupten wir nicht zu sein. Was wir sind: Data Scientists mit Erfahrung in komplexen Wissenssystemen. Die klinische Expertise im Programm kommt durch die Ärzt:innen, mit denen unsere Patient:innen ohnehin arbeiten — und nach der Alpha-Phase auch durch direkte Zusammenarbeit mit Kliniken.",
             ],
-            ["Aktuell keinen klinischen Beirat.", "Wir arbeiten daran, das ist aber noch nicht so weit."],
+            [
+              "Aktuell keinen klinischen Beirat.",
+              "Wir arbeiten daran, das ist aber noch nicht so weit.",
+            ],
             ["Keinen Standort in einer Klinik.", "Wir sind ein kleines, eigenfinanziertes Team."],
             [
               "Keine vorgefertigte Geschichte erfolgreicher Fälle.",
               "Mit denen wir uns schmücken könnten — wir haben einen.",
             ],
           ] as const).map(([h, b], i) => (
-            <li key={i} style={{ borderTop: `1px solid ${t.ink}`, paddingTop: 12 }}>
-              <div
-                style={{
-                  fontFamily: t.serif,
-                  fontSize: 19,
-                  lineHeight: 1.3,
-                  color: t.ink,
-                  fontWeight: 500,
-                }}
-              >
+            <li key={i} className="border-t border-ink pt-3">
+              <div className="font-serif text-base font-medium leading-[1.3] text-ink sm:text-[19px]">
                 {h}
               </div>
-              <div style={{ fontSize: 14, lineHeight: 1.55, color: t.slate, marginTop: 6 }}>{b}</div>
+              <div className="mt-1.5 text-sm leading-[1.55] text-slate">{b}</div>
             </li>
           ))}
         </ul>
       </div>
 
-      <div
-        style={{
-          marginTop: 40,
-          display: "grid",
-          gridTemplateColumns: "auto 1fr auto",
-          gap: 24,
-          alignItems: "center",
-          padding: 20,
-          border: `1px dashed ${t.ink}`,
-        }}
-      >
-        <div
-          style={{
-            fontFamily: t.mono,
-            fontSize: 11,
-            letterSpacing: ".14em",
-            color: t.accent,
-            textTransform: "uppercase",
-          }}
-        >
+      <div className="mt-10 grid grid-cols-1 items-center gap-5 border border-dashed border-ink p-5 sm:grid-cols-[auto_1fr_auto] sm:gap-6">
+        <div className="font-mono text-[10px] uppercase tracking-[.14em] text-accent sm:text-[11px]">
           Persönlich erreichbar
         </div>
-        <div style={{ fontSize: 15, color: t.slate, lineHeight: 1.55 }}>
+        <div className="text-[15px] leading-[1.55] text-slate">
           Wenn du uns direkt erreichen willst, geht das. Keine Hotline, keine Tickets.
         </div>
         <a
           href="mailto:kontakt@dxapp.health"
-          style={{
-            padding: "12px 18px",
-            background: t.ink,
-            color: t.paper,
-            fontSize: 13,
-            fontWeight: 500,
-            textDecoration: "none",
-            whiteSpace: "nowrap",
-          }}
+          className="inline-flex items-center justify-center whitespace-nowrap bg-ink px-5 py-3 text-[13px] font-medium text-paper no-underline"
         >
           → kontakt@dxapp.health
         </a>
@@ -1894,7 +1034,10 @@ export function SectionFAQ({ t }: { t: Theme }) {
       q: "Was, wenn meine Ärzt:innen nicht mitspielen?",
       a: "Das einseitige Termin-Briefing ist so gebaut, dass es null Mehraufwand bedeutet — eine Seite Fakten zu dir, eine Seite Forschungsstand, eine konkrete Frage. Viele Ärzt:innen reagieren auf das Format positiv, weil es ihnen Zeit spart. Es gibt aber Ärzt:innen, die mit externer Vorbereitung nicht arbeiten wollen. Wenn das so ist, suchen wir gemeinsam eine andere Tür.",
     },
-    { q: "Kann ich jederzeit abbrechen?", a: "Ja, jederzeit. Daten lassen sich auf Wunsch löschen." },
+    {
+      q: "Kann ich jederzeit abbrechen?",
+      a: "Ja, jederzeit. Daten lassen sich auf Wunsch löschen.",
+    },
     {
       q: "Habt ihr schon erfolgreiche Fälle?",
       a: "Ja, einen — den eigenen Fall, den wir in §IV.b erzählen. Das ist ein erstes Beispiel, kein statistischer Beweis. Die Validierung an weiteren Fällen ist genau das, was wir in der Alpha tun.",
@@ -1945,74 +1088,36 @@ export function SectionFAQ({ t }: { t: Theme }) {
   const cols = [faqs.slice(0, half), faqs.slice(half)];
 
   return (
-    <Section t={t} kicker="§XII · Häufige Fragen" bg={t.card} divider>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 56, marginBottom: 56 }}>
-        <h2
-          style={{
-            fontFamily: t.serif,
-            fontWeight: 400,
-            fontSize: 60,
-            lineHeight: 1.03,
-            letterSpacing: "-0.016em",
-            margin: 0,
-            color: t.ink,
-          }}
-        >
+    <Section kicker="§XII · Häufige Fragen" divider className="bg-card">
+      <div className="mb-12 grid grid-cols-1 gap-8 lg:mb-14 lg:grid-cols-2 lg:gap-14">
+        <h2 className="m-0 font-serif text-[2rem] font-normal leading-[1.05] tracking-[-0.016em] text-ink sm:text-[2.75rem] lg:text-[3.75rem]">
           Die zweite Welle Fragen, die eine vorsichtige Person stellt.
         </h2>
-        <p
-          style={{
-            fontFamily: t.serif,
-            fontSize: 19,
-            lineHeight: 1.5,
-            color: t.slate,
-            margin: 0,
-            alignSelf: "end",
-          }}
-        >
-          Wenn deine Frage hier nicht steht: schreib uns. Es geht direkt zu einer Person, nicht in
-          ein Postfach.
+        <p className="m-0 font-serif text-lg leading-[1.5] text-slate sm:self-end sm:text-xl lg:text-[19px]">
+          Wenn deine Frage hier nicht steht: schreib uns. Es geht direkt zu einer Person,
+          nicht in ein Postfach.
         </p>
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 48 }}>
+      <div className="grid grid-cols-1 gap-x-12 lg:grid-cols-2">
         {cols.map((col, ci) => (
           <div key={ci}>
             {col.map((f, i) => (
-              <details key={i} style={{ borderTop: `1px solid ${t.ink}`, padding: "18px 0" }}>
-                <summary
-                  style={{
-                    fontFamily: t.serif,
-                    fontSize: 20,
-                    lineHeight: 1.3,
-                    color: t.ink,
-                    cursor: "pointer",
-                    listStyle: "none",
-                    display: "flex",
-                    justifyContent: "space-between",
-                    gap: 16,
-                    fontWeight: 500,
-                  }}
-                >
+              <details
+                key={i}
+                className="group border-t border-ink py-4 [&[open]_summary_.faq-icon]:rotate-45"
+              >
+                <summary className="flex cursor-pointer list-none items-start justify-between gap-4 font-serif text-lg font-medium leading-[1.3] text-ink sm:text-xl">
                   <span>{f.q.replace("{brand}", t.brand)}</span>
-                  <span style={{ color: t.accent, fontFamily: t.mono, fontSize: 18 }}>+</span>
+                  <span className="faq-icon mt-1 inline-block font-mono text-lg leading-none text-accent transition-transform duration-200">
+                    +
+                  </span>
                 </summary>
-                <div
-                  style={{
-                    fontSize: 15,
-                    lineHeight: 1.6,
-                    color: t.slate,
-                    marginTop: 12,
-                    maxWidth: 540,
-                  }}
-                >
+                <div className="mt-3 max-w-[60ch] text-[15px] leading-[1.6] text-slate">
                   {f.a.replace("{brand}", t.brand)}
                 </div>
               </details>
             ))}
-            {ci === cols.length - 1 && (
-              <div style={{ borderTop: `1px solid ${t.ink}`, paddingTop: 20, fontSize: 14, color: t.mute }} />
-            )}
           </div>
         ))}
       </div>
@@ -2022,7 +1127,6 @@ export function SectionFAQ({ t }: { t: Theme }) {
 
 // ─── /bewerbung ──────────────────────────────────────────────────────────
 function FormField({
-  t,
   label,
   name,
   type = "text",
@@ -2030,7 +1134,6 @@ function FormField({
   multiline,
   required,
 }: {
-  t: Theme;
   label: string;
   name: string;
   type?: string;
@@ -2038,31 +1141,14 @@ function FormField({
   multiline?: boolean;
   required?: boolean;
 }) {
-  const shared = {
-    width: "100%",
-    padding: "12px 14px",
-    border: `1px solid ${t.ink}`,
-    background: t.paper,
-    fontFamily: t.sans,
-    fontSize: 15,
-    color: t.ink,
-    boxSizing: "border-box" as const,
-  };
+  const fieldClasses =
+    "w-full border border-ink bg-paper px-3.5 py-3 text-[15px] text-ink placeholder:text-mute focus:outline-none focus:ring-2 focus:ring-accent/30";
+
   return (
-    <div style={{ marginBottom: 16 }}>
-      <label
-        style={{
-          display: "block",
-          fontFamily: t.mono,
-          fontSize: 10,
-          letterSpacing: ".14em",
-          textTransform: "uppercase",
-          color: t.mute,
-          marginBottom: 6,
-        }}
-      >
+    <div className="mb-4">
+      <label className="mb-1.5 block font-mono text-[10px] uppercase tracking-[.14em] text-mute">
         {label}
-        {required && <span style={{ color: t.accent, marginLeft: 4 }}>*</span>}
+        {required && <span className="ml-1 text-accent">*</span>}
       </label>
       {multiline ? (
         <textarea
@@ -2070,7 +1156,7 @@ function FormField({
           placeholder={placeholder}
           rows={4}
           required={required}
-          style={{ ...shared, resize: "vertical" }}
+          className={fieldClasses + " resize-y"}
         />
       ) : (
         <input
@@ -2078,7 +1164,7 @@ function FormField({
           name={name}
           placeholder={placeholder}
           required={required}
-          style={shared}
+          className={fieldClasses}
         />
       )}
     </div>
@@ -2086,36 +1172,22 @@ function FormField({
 }
 
 function FormCheck({
-  t,
   name,
   required,
   children,
 }: {
-  t: Theme;
   name: string;
   required?: boolean;
   children: React.ReactNode;
 }) {
   return (
-    <label
-      style={{
-        display: "grid",
-        gridTemplateColumns: "auto 1fr",
-        gap: 10,
-        alignItems: "start",
-        padding: "10px 0",
-        fontSize: 14,
-        lineHeight: 1.5,
-        color: t.ink,
-        cursor: "pointer",
-      }}
-    >
+    <label className="grid cursor-pointer grid-cols-[auto_1fr] items-start gap-2.5 py-2.5 text-sm leading-[1.5] text-ink">
       <input
         type="checkbox"
         name={name}
         value="1"
         required={required}
-        style={{ marginTop: 4, accentColor: t.accent, width: 16, height: 16 }}
+        className="mt-1 h-4 w-4 accent-accent"
       />
       <span>{children}</span>
     </label>
@@ -2128,7 +1200,7 @@ export type BewerbungFormState =
   | null;
 
 export function SectionBewerbung({
-  t,
+  t: _t,
   state,
   isSubmitting,
 }: {
@@ -2137,257 +1209,151 @@ export function SectionBewerbung({
   isSubmitting?: boolean;
 }) {
   return (
-    <section style={{ background: t.paper, borderTop: `1px solid ${t.soft}` }}>
-      <div style={{ maxWidth: 1280, margin: "0 auto", padding: "96px 48px" }}>
-        <SectionKicker t={t}>§XIII · Bewerben</SectionKicker>
+    <section className="border-t border-soft bg-paper">
+      <div className="container-page py-16 sm:py-20 lg:py-24">
+        <SectionKicker>§XIII · Bewerben</SectionKicker>
 
-        <div style={{ display: "grid", gridTemplateColumns: "1.2fr 1fr", gap: 56, alignItems: "start" }}>
+        <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-[1.2fr_1fr] lg:gap-14">
           <div>
-            <h2
-              style={{
-                fontFamily: t.serif,
-                fontWeight: 400,
-                fontSize: 68,
-                lineHeight: 1.02,
-                letterSpacing: "-0.02em",
-                margin: 0,
-                color: t.ink,
-              }}
-            >
+            <h2 className="m-0 font-serif text-[2.25rem] font-normal leading-[1.02] tracking-[-0.02em] text-ink sm:text-[3rem] lg:text-[4.25rem]">
               In drei Schritten — ehrlich.
             </h2>
-            <p
-              style={{
-                fontFamily: t.serif,
-                fontSize: 20,
-                lineHeight: 1.5,
-                color: t.slate,
-                marginTop: 24,
-                maxWidth: 620,
-              }}
-            >
-              Wir reservieren keinen Platz, bevor wir uns gesprochen haben — und du musst dich nicht
-              entschieden haben, bevor wir uns gesprochen haben.
+            <p className="mt-5 max-w-[55ch] font-serif text-lg leading-[1.5] text-slate sm:mt-6 sm:text-xl lg:text-[20px]">
+              Wir reservieren keinen Platz, bevor wir uns gesprochen haben — und du musst
+              dich nicht entschieden haben, bevor wir uns gesprochen haben.
             </p>
 
-            <ol style={{ listStyle: "none", padding: 0, margin: "40px 0 0" }}>
+            <ol className="m-0 mt-10 list-none p-0">
               {([
-                ["01", "Kurzes Formular ausfüllen.", "Unten rechts. Name, Alter, Kontakt, ein paar Häkchen, optional zwei Sätze."],
-                ["02", "Onboarding-Call vereinbaren.", "Wir melden uns innerhalb von ein bis drei Werktagen mit Terminvorschlägen."],
-                ["03", "App-Zugang nach dem Call —", "wenn wir beide das Gefühl haben, dass es passt."],
+                [
+                  "01",
+                  "Kurzes Formular ausfüllen.",
+                  "Unten rechts. Name, Alter, Kontakt, ein paar Häkchen, optional zwei Sätze.",
+                ],
+                [
+                  "02",
+                  "Onboarding-Call vereinbaren.",
+                  "Wir melden uns innerhalb von ein bis drei Werktagen mit Terminvorschlägen.",
+                ],
+                [
+                  "03",
+                  "App-Zugang nach dem Call —",
+                  "wenn wir beide das Gefühl haben, dass es passt.",
+                ],
               ] as const).map(([n, h, b], i) => (
                 <li
                   key={i}
-                  style={{
-                    display: "grid",
-                    gridTemplateColumns: "56px 1fr",
-                    gap: 18,
-                    padding: "18px 0",
-                    borderTop: `1px solid ${t.ink}`,
-                  }}
+                  className="grid grid-cols-[40px_1fr] gap-4 border-t border-ink py-4 sm:grid-cols-[56px_1fr] sm:gap-5"
                 >
-                  <span style={{ fontFamily: t.mono, fontSize: 13, letterSpacing: ".14em", color: t.accent }}>
+                  <span className="font-mono text-[13px] tracking-[.14em] text-accent">
                     {n}
                   </span>
                   <div>
-                    <div
-                      style={{
-                        fontFamily: t.serif,
-                        fontWeight: 500,
-                        fontSize: 22,
-                        lineHeight: 1.2,
-                        color: t.ink,
-                      }}
-                    >
+                    <div className="font-serif text-lg font-medium leading-[1.2] text-ink sm:text-[22px]">
                       {h}
                     </div>
-                    <div style={{ fontSize: 15, color: t.slate, marginTop: 6, lineHeight: 1.55 }}>{b}</div>
+                    <div className="mt-1.5 text-[15px] leading-[1.55] text-slate">{b}</div>
                   </div>
                 </li>
               ))}
             </ol>
 
-            <div
-              style={{
-                marginTop: 32,
-                padding: 18,
-                background: t.card,
-                border: `1px dashed ${t.ink}`,
-                fontSize: 14,
-                color: t.slate,
-                lineHeight: 1.55,
-              }}
-            >
-              <span
-                style={{
-                  fontFamily: t.mono,
-                  fontSize: 11,
-                  letterSpacing: ".14em",
-                  color: t.accent,
-                  textTransform: "uppercase",
-                  marginRight: 12,
-                }}
-              >
+            <div className="mt-8 border border-dashed border-ink bg-card p-4 text-sm leading-[1.55] text-slate sm:p-5">
+              <span className="mr-3 font-mono text-[10px] uppercase tracking-[.14em] text-accent sm:text-[11px]">
                 Falls wir gerade keinen Platz haben
               </span>
-              Wir nehmen aktuell maximal eine Hand voll Patient:innen parallel auf. Wenn alle Plätze
-              belegt sind, kommst du auf eine Warteliste — mit ehrlicher Einschätzung, wann ein
-              Platz frei wird. Kein „in zwei Tagen wieder verfügbar".
+              Wir nehmen aktuell maximal eine Hand voll Patient:innen parallel auf. Wenn alle
+              Plätze belegt sind, kommst du auf eine Warteliste — mit ehrlicher Einschätzung,
+              wann ein Platz frei wird. Kein „in zwei Tagen wieder verfügbar".
             </div>
           </div>
 
           {state?.status === "success" ? (
-            <div
-              style={{
-                background: t.card,
-                border: `1px solid ${t.ink}`,
-                padding: 32,
-                display: "flex",
-                flexDirection: "column",
-                gap: 16,
-              }}
-            >
-              <div
-                style={{
-                  fontFamily: t.mono,
-                  fontSize: 11,
-                  letterSpacing: ".14em",
-                  color: t.accent,
-                  textTransform: "uppercase",
-                }}
-              >
+            <div className="flex flex-col gap-4 border border-ink bg-card p-6 sm:p-8">
+              <div className="font-mono text-[10px] uppercase tracking-[.14em] text-accent sm:text-[11px]">
                 Schritt 01 · Erledigt
               </div>
-              <h3
-                style={{
-                  fontFamily: t.serif,
-                  fontSize: 32,
-                  fontWeight: 500,
-                  margin: 0,
-                  color: t.ink,
-                  lineHeight: 1.2,
-                }}
-              >
+              <h3 className="m-0 font-serif text-2xl font-medium leading-[1.2] text-ink sm:text-[2rem]">
                 Wir haben deine Bewerbung erhalten.
               </h3>
-              <p style={{ fontSize: 15, color: t.slate, lineHeight: 1.6, margin: 0 }}>
-                Eine echte Person — kein Auto-Responder — meldet sich innerhalb von ein bis drei
-                Werktagen mit Terminvorschlägen für den Onboarding-Call.
+              <p className="m-0 text-[15px] leading-[1.6] text-slate">
+                Eine echte Person — kein Auto-Responder — meldet sich innerhalb von ein bis
+                drei Werktagen mit Terminvorschlägen für den Onboarding-Call.
               </p>
-              <p
-                style={{
-                  fontFamily: t.mono,
-                  fontSize: 11,
-                  letterSpacing: ".14em",
-                  color: t.mute,
-                  textTransform: "uppercase",
-                  margin: 0,
-                }}
-              >
+              <p className="m-0 font-mono text-[10px] uppercase tracking-[.14em] text-mute sm:text-[11px]">
                 Referenz · #{String(state.id).padStart(4, "0")}
               </p>
             </div>
           ) : (
-            <Form
-              method="post"
-              style={{ background: t.card, border: `1px solid ${t.ink}`, padding: 32 }}
-            >
-              <div
-                style={{
-                  fontFamily: t.mono,
-                  fontSize: 11,
-                  letterSpacing: ".14em",
-                  color: t.accent,
-                  textTransform: "uppercase",
-                }}
-              >
+            <Form method="post" className="border border-ink bg-card p-6 sm:p-8">
+              <div className="font-mono text-[10px] uppercase tracking-[.14em] text-accent sm:text-[11px]">
                 Schritt 01 · Kurzes Formular
               </div>
-              <h3
-                style={{
-                  fontFamily: t.serif,
-                  fontSize: 28,
-                  fontWeight: 500,
-                  margin: "10px 0 24px",
-                  color: t.ink,
-                  lineHeight: 1.2,
-                }}
-              >
+              <h3 className="mb-6 mt-2 font-serif text-2xl font-medium leading-[1.2] text-ink sm:text-[28px]">
                 Schreib uns, was du erlebt hast.
               </h3>
 
               {state?.status === "error" && (
                 <div
-                  style={{
-                    padding: "12px 14px",
-                    background: t.warm,
-                    borderLeft: `3px solid ${t.accent}`,
-                    fontSize: 14,
-                    color: t.ink,
-                    lineHeight: 1.5,
-                    marginBottom: 18,
-                  }}
+                  role="alert"
+                  className="mb-4 border-l-[3px] border-accent bg-warm p-3.5 text-sm leading-[1.5] text-ink"
                 >
                   {state.message}
                 </div>
               )}
 
-              <FormField t={t} label="Vor- und Nachname" name="name" required />
-              <FormField t={t} label="Alter" name="age" />
-              <FormField t={t} label="E-Mail" name="email" type="email" placeholder="für die Antwort" required />
-              <FormField t={t} label="Telefon" name="phone" type="tel" placeholder="für den Onboarding-Call" />
+              <FormField label="Vor- und Nachname" name="name" required />
+              <FormField label="Alter" name="age" />
+              <FormField
+                label="E-Mail"
+                name="email"
+                type="email"
+                placeholder="für die Antwort"
+                required
+              />
+              <FormField
+                label="Telefon"
+                name="phone"
+                type="tel"
+                placeholder="für den Onboarding-Call"
+              />
 
-              <div style={{ marginTop: 6, marginBottom: 14 }}>
-                <FormCheck t={t} name="consent_no_diagnosis" required>
+              <div className="mb-3.5 mt-1.5">
+                <FormCheck name="consent_no_diagnosis" required>
                   Ich war bei meinem Hausarzt oder meiner Hausärztin und bei mindestens einer
                   Fachärzt:in, und ich habe keine klare Diagnose erhalten.
                 </FormCheck>
-                <FormCheck t={t} name="consent_records" required>
-                  Ich habe die Arztbriefe aus diesen Besuchen vorliegen oder kann sie anfordern.
+                <FormCheck name="consent_records" required>
+                  Ich habe die Arztbriefe aus diesen Besuchen vorliegen oder kann sie
+                  anfordern.
                 </FormCheck>
               </div>
 
               <FormField
-                t={t}
                 label="Ein bis zwei Sätze zur Situation (optional)"
                 name="situation"
                 placeholder="Du musst hier nichts schreiben — wir sprechen im Call ausführlich darüber."
                 multiline
               />
 
-              <div style={{ fontSize: 12, color: t.mute, marginTop: 14, lineHeight: 1.5 }}>
-                Keine Datenweitergabe. Wir melden uns innerhalb von ein bis drei Werktagen.
+              <div className="mt-3.5 text-xs leading-[1.5] text-mute">
+                Keine Datenweitergabe (
+                <a
+                  href="/datenschutz"
+                  className="border-b border-mute/60 text-mute no-underline hover:text-ink"
+                >
+                  Datenschutzerklärung
+                </a>
+                ). Wir melden uns innerhalb von ein bis drei Werktagen.
               </div>
               <button
                 type="submit"
                 disabled={isSubmitting}
-                style={{
-                  marginTop: 20,
-                  width: "100%",
-                  padding: "16px 20px",
-                  background: t.ink,
-                  color: t.paper,
-                  border: 0,
-                  fontSize: 15,
-                  fontWeight: 500,
-                  letterSpacing: ".02em",
-                  cursor: isSubmitting ? "wait" : "pointer",
-                  opacity: isSubmitting ? 0.7 : 1,
-                }}
+                className="mt-5 w-full bg-ink px-5 py-4 text-[15px] font-medium tracking-wide text-paper disabled:cursor-wait disabled:opacity-70"
               >
                 {isSubmitting ? "Wird abgesendet …" : "Formular absenden"}
               </button>
-              <div
-                style={{
-                  fontSize: 12,
-                  color: t.mute,
-                  marginTop: 10,
-                  textAlign: "center",
-                  fontFamily: t.mono,
-                  letterSpacing: ".06em",
-                  textTransform: "uppercase",
-                }}
-              >
+              <div className="mt-2.5 text-center font-mono text-[10px] uppercase tracking-[.06em] text-mute sm:text-[11px]">
                 Antwort innerhalb 1–3 Werktagen · echte Person
               </div>
             </Form>
@@ -2398,29 +1364,19 @@ export function SectionBewerbung({
   );
 }
 
-// ─── /transparenz → Haftung (inline-defined in page-transparenz.jsx) ────
-export function SectionHaftung({ t }: { t: Theme }) {
+// ─── /transparenz → Haftung ──────────────────────────────────────────────
+export function SectionHaftung(_: { t: Theme }) {
   return (
-    <Section t={t} kicker="Wer haftet" bg={t.card} divider>
-      <div style={{ display: "grid", gridTemplateColumns: "1.1fr 1fr", gap: 56, alignItems: "start" }}>
-        <h2
-          style={{
-            fontFamily: t.serif,
-            fontWeight: 400,
-            fontSize: 52,
-            lineHeight: 1.04,
-            letterSpacing: "-0.015em",
-            margin: 0,
-            color: t.ink,
-            textWrap: "balance",
-          }}
-        >
+    <Section kicker="Wer haftet" divider className="bg-card">
+      <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-[1.1fr_1fr] lg:gap-14">
+        <h2 className="m-0 font-serif text-[2rem] font-normal leading-[1.05] tracking-[-0.015em] text-balance text-ink sm:text-[2.75rem] lg:text-[3.25rem]">
           Wir diagnostizieren und behandeln nicht.
         </h2>
-        <p style={{ fontSize: 17, lineHeight: 1.65, color: t.slate, margin: 0 }}>
-          Die ärztliche Verantwortung bleibt bei deinen Ärzt:innen. Wir sind ein Vorbereitungs- und
-          Recherchewerkzeug, kein Medizinprodukt im regulatorischen Sinn. Diese Unterscheidung ist
-          nicht kosmetisch — sie bestimmt, was wir versprechen können und was nicht.
+        <p className="m-0 text-base leading-[1.65] text-slate sm:text-[17px]">
+          Die ärztliche Verantwortung bleibt bei deinen Ärzt:innen. Wir sind ein
+          Vorbereitungs- und Recherchewerkzeug, kein Medizinprodukt im regulatorischen Sinn.
+          Diese Unterscheidung ist nicht kosmetisch — sie bestimmt, was wir versprechen
+          können und was nicht.
         </p>
       </div>
     </Section>

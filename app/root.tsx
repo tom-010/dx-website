@@ -14,7 +14,14 @@ import { recordPageView } from "./db.server";
 export async function loader({ request }: Route.LoaderArgs) {
   const url = new URL(request.url);
   // Filter out asset requests; only record real page navigations.
-  if (!url.pathname.startsWith("/assets") && !url.pathname.startsWith("/screens") && url.pathname !== "/favicon.ico") {
+  if (
+    !url.pathname.startsWith("/assets") &&
+    !url.pathname.startsWith("/screens") &&
+    url.pathname !== "/favicon.ico" &&
+    url.pathname !== "/favicon.svg" &&
+    url.pathname !== "/favicon.png" &&
+    url.pathname !== "/apple-touch-icon.png"
+  ) {
     recordPageView(
       url.pathname,
       request.headers.get("referer"),
@@ -25,6 +32,9 @@ export async function loader({ request }: Route.LoaderArgs) {
 }
 
 export const links: Route.LinksFunction = () => [
+  { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
+  { rel: "icon", type: "image/png", sizes: "256x256", href: "/favicon.png" },
+  { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
   {
     rel: "preconnect",
