@@ -3,7 +3,7 @@ import { PageShell, PageHero, BackToHome } from "../components/PageShell";
 import { SectionFAQ } from "../components/Sections";
 
 export function meta({}: Route.MetaArgs) {
-  return [{ title: "FAQ · DxApp" }];
+  return [{ title: "FAQ · Zebriss" }];
 }
 
 export default function FAQ() {

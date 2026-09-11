@@ -3,7 +3,7 @@ import { PageShell, PageHero, BackToHome } from "../components/PageShell";
 import { SectionWerWirSind, SectionBouldering } from "../components/Sections";
 
 export function meta({}: Route.MetaArgs) {
-  return [{ title: "Über uns · DxApp" }];
+  return [{ title: "Über uns · Zebriss" }];
 }
 
 export default function UeberUns() {

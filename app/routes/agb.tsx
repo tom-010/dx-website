@@ -3,7 +3,7 @@ import { PageShell, PageHero, BackToHome } from "../components/PageShell";
 import { Section } from "../components/Primitives";
 
 export function meta({}: Route.MetaArgs) {
-  return [{ title: "AGB · Alpha · DxApp" }];
+  return [{ title: "AGB · Alpha · Zebriss" }];
 }
 
 export default function AGB() {

@@ -3,7 +3,7 @@ import { PageShell, PageHero, BackToHome } from "../components/PageShell";
 import { SectionMethode, SectionBegleitung, SectionKosten } from "../components/Sections";
 
 export function meta({}: Route.MetaArgs) {
-  return [{ title: "Methode · DxApp" }];
+  return [{ title: "Methode · Zebriss" }];
 }
 
 export default function Methode() {

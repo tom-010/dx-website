@@ -49,22 +49,27 @@ export function Hero({ t }: { t: Theme }) {
           </div>
         </div>
 
-        <div className="relative mx-auto flex w-full max-w-[340px] items-center justify-center lg:max-w-none">
+        <figure className="relative m-0 mx-auto w-full max-w-[420px] lg:max-w-none">
           <div
             aria-hidden
-            className="pointer-events-none absolute -inset-10 blur-[10px]"
+            className="pointer-events-none absolute -inset-8 blur-[12px]"
             style={{
-              background: `radial-gradient(55% 50% at 60% 50%, var(--color-warm) 0%, transparent 70%)`,
+              background: `radial-gradient(55% 50% at 55% 50%, var(--color-warm) 0%, transparent 70%)`,
             }}
           />
-          <div className="relative w-full">
-            <AppScreenshot
-              src="/screens/home_02_anamnesis_done.png"
-              alt="Tab Heute — der aktuelle Fall"
-              maxWidth={340}
+          <picture className="relative block">
+            <source srcSet="/help.webp" type="image/webp" />
+            <img
+              src="/help.jpg"
+              alt="Eine Frau stützt den Kopf in die Hand, eine andere Person hält ihren Arm"
+              fetchPriority="high"
+              decoding="async"
+              width={1200}
+              height={1800}
+              className="block aspect-[4/5] w-full bg-soft object-cover object-[50%_35%] lg:aspect-[2/3]"
             />
-          </div>
-        </div>
+          </picture>
+        </figure>
       </div>
     </section>
   );
@@ -568,21 +573,39 @@ export function HomeAlphaKurz(_: { t: Theme }) {
           </p>
         </div>
 
-        <div className="flex flex-col gap-3.5">
-          {cards.map(([big, label, sub], i) => (
+        <div className="grid grid-cols-1 items-center gap-8 sm:grid-cols-[minmax(180px,220px)_1fr] sm:gap-8">
+          <div className="relative mx-auto flex w-full max-w-[220px] justify-center">
             <div
-              key={i}
-              className="grid grid-cols-[auto_1fr] items-baseline gap-5 border border-ink bg-card px-5 py-5 sm:px-6"
-            >
-              <div className="whitespace-nowrap font-serif text-[2rem] font-medium leading-[0.95] tracking-[-0.02em] text-ink tabular-nums sm:text-[2.5rem] lg:text-[2.625rem]">
-                {big}
-              </div>
-              <div>
-                <div className="text-[15px] font-medium text-ink">{label}</div>
-                <div className="mt-1 text-[13px] leading-[1.5] text-slate">{sub}</div>
-              </div>
+              aria-hidden
+              className="pointer-events-none absolute -inset-8 opacity-60 blur-[10px]"
+              style={{
+                background: `radial-gradient(60% 50% at 50% 50%, var(--color-warm) 0%, transparent 70%)`,
+              }}
+            />
+            <div className="relative w-full">
+              <AppScreenshot
+                src="/screens/home_02_anamnesis_done.png"
+                alt="Tab Heute — der aktuelle Fall"
+                maxWidth={220}
+              />
             </div>
-          ))}
+          </div>
+          <div className="flex flex-col gap-3.5">
+            {cards.map(([big, label, sub], i) => (
+              <div
+                key={i}
+                className="grid grid-cols-[auto_1fr] items-baseline gap-5 border border-ink bg-card px-5 py-5 sm:px-6"
+              >
+                <div className="whitespace-nowrap font-serif text-[2rem] font-medium leading-[0.95] tracking-[-0.02em] text-ink tabular-nums sm:text-[2.5rem] lg:text-[2.625rem]">
+                  {big}
+                </div>
+                <div>
+                  <div className="text-[15px] font-medium text-ink">{label}</div>
+                  <div className="mt-1 text-[13px] leading-[1.5] text-slate">{sub}</div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </Section>

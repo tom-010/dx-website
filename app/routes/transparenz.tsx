@@ -3,7 +3,7 @@ import { PageShell, PageHero, BackToHome } from "../components/PageShell";
 import { SectionAlpha, SectionDaten, SectionHaftung } from "../components/Sections";
 
 export function meta({}: Route.MetaArgs) {
-  return [{ title: "Transparenz · DxApp" }];
+  return [{ title: "Transparenz · Zebriss" }];
 }
 
 export default function Transparenz() {

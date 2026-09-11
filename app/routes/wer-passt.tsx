@@ -3,7 +3,7 @@ import { PageShell, PageHero, BackToHome } from "../components/PageShell";
 import { SectionBistDuHierRichtig } from "../components/Sections";
 
 export function meta({}: Route.MetaArgs) {
-  return [{ title: "Wer passt · DxApp" }];
+  return [{ title: "Wer passt · Zebriss" }];
 }
 
 export default function WerPasst() {

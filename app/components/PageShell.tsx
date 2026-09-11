@@ -2,6 +2,7 @@ import type { Theme } from "./theme";
 import { theme } from "./theme";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
+import { DevBanner } from "./DevBanner";
 
 export function PageShell({
   current,
@@ -12,6 +13,7 @@ export function PageShell({
 }) {
   return (
     <div className="flex min-h-screen flex-col bg-paper text-ink">
+      <DevBanner />
       <Header current={current} />
       <main className="flex-1">{children(theme)}</main>
       <Footer />

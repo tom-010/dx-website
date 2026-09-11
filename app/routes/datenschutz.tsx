@@ -3,7 +3,7 @@ import { PageShell, PageHero, BackToHome } from "../components/PageShell";
 import { Section } from "../components/Primitives";
 
 export function meta({}: Route.MetaArgs) {
-  return [{ title: "Datenschutzerklärung · DxApp" }];
+  return [{ title: "Datenschutzerklärung · Zebriss" }];
 }
 
 export default function Datenschutz() {
@@ -53,10 +53,10 @@ export default function Datenschutz() {
                 Datenschutzfragen gehen direkt an eine echte Person — kein Ticket-System.
               </p>
               <a
-                href="mailto:datenschutz@dxapp.health"
+                href="mailto:info@zebriss.de"
                 className="mt-5 inline-flex items-center justify-center whitespace-nowrap bg-ink px-5 py-3 text-[13px] font-medium text-paper no-underline"
               >
-                → datenschutz@dxapp.health
+                → info@zebriss.de
               </a>
             </div>
           </Section>

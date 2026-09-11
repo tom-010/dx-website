@@ -14,7 +14,7 @@ import {
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "Tester-Akquise · das Programm (Working Title)" },
+    { title: "Zebriss · Recherche-Programm für seltene und schwer zu diagnostizierende Krankheiten" },
     {
       name: "description",
       content:

@@ -5,7 +5,7 @@ import { SectionBewerbung, type BewerbungFormState } from "../components/Section
 import { recordApplication } from "../db.server";
 
 export function meta({}: Route.MetaArgs) {
-  return [{ title: "Bewerbung · DxApp" }];
+  return [{ title: "Bewerbung · Zebriss" }];
 }
 
 export async function action({ request }: Route.ActionArgs): Promise<BewerbungFormState> {

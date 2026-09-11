@@ -65,16 +65,16 @@ export function Footer() {
             <FL href="/agb">AGB · Alpha</FL>
           </FooterCol>
           <FooterCol title="Kontakt">
-            <FL href="mailto:kontakt@dxapp.health">kontakt@dxapp.health</FL>
-            <FL href="mailto:datenschutz@dxapp.health">datenschutz@dxapp.health</FL>
+            <FL href={`mailto:${theme.email}`}>{theme.email}</FL>
             <li className="mt-2 text-xs leading-relaxed text-paper/50">
-              Datenschutz: direkt an eine echte Person, kein Ticket-System.
+              Auch für Datenschutzfragen: direkt an eine echte Person, kein
+              Ticket-System.
             </li>
           </FooterCol>
         </div>
         <div className="mt-10 flex flex-col gap-2 border-t border-paper/15 pt-6 font-mono text-[11px] uppercase tracking-[.06em] text-paper/50 sm:mt-12 sm:flex-row sm:justify-between sm:gap-4">
           <span>© 2026 · Eigenfinanziert · keine Investor:innen</span>
-          <span>{theme.brand} ist Working Title — finaler Name folgt</span>
+          <span>{theme.domain} · in Entwicklung · Visionsdokument</span>
         </div>
       </div>
     </footer>

@@ -3,7 +3,7 @@ import { PageShell, PageHero, BackToHome } from "../components/PageShell";
 import { Section } from "../components/Primitives";
 
 export function meta({}: Route.MetaArgs) {
-  return [{ title: "Impressum · DxApp" }];
+  return [{ title: "Impressum · Zebriss" }];
 }
 
 export default function Impressum() {
@@ -35,10 +35,10 @@ export default function Impressum() {
                 <p className="mt-4">
                   Für rechtliche Anfragen in der Zwischenzeit:{" "}
                   <a
-                    href="mailto:kontakt@dxapp.health"
+                    href="mailto:info@zebriss.de"
                     className="border-b border-ink pb-[1px] text-ink no-underline"
                   >
-                    kontakt@dxapp.health
+                    info@zebriss.de
                   </a>
                   .
                 </p>

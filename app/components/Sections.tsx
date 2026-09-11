@@ -1009,10 +1009,10 @@ export function SectionWerWirSind({ t }: { t: Theme }) {
           Wenn du uns direkt erreichen willst, geht das. Keine Hotline, keine Tickets.
         </div>
         <a
-          href="mailto:kontakt@dxapp.health"
+          href="mailto:info@zebriss.de"
           className="inline-flex items-center justify-center whitespace-nowrap bg-ink px-5 py-3 text-[13px] font-medium text-paper no-underline"
         >
-          → kontakt@dxapp.health
+          → info@zebriss.de
         </a>
       </div>
     </Section>

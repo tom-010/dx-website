@@ -1,5 +1,7 @@
 export const theme = {
-  brand: "DxApp",
+  brand: "Zebriss",
+  domain: "zebriss.de",
+  email: "info@zebriss.de",
   headline: "Jemand, der nur an *deinem* Fall arbeitet.",
   showPhotos: true,
 } as const;

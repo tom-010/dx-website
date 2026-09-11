@@ -4,14 +4,45 @@ services:
     restart: always
     environment:
       - PORT=3000
+      # SQLite lives on a named volume so page views / applications survive rebuilds.
+      - DATABASE_PATH=/app/state/data.db
+    volumes:
+      - website_state:/app/state
     networks:
       - web
     labels:
       - "traefik.enable=true"
+      - "traefik.http.services.dx-website.loadbalancer.server.port=3000"
+
+      # zebriss.de — primary domain. HTTP-01 challenge so it also works behind Cloudflare.
+      - "traefik.http.routers.zebriss.rule=Host(`zebriss.de`)"
+      - "traefik.http.routers.zebriss.entrypoints=websecure"
+      - "traefik.http.routers.zebriss.tls.certresolver=httpresolver"
+      - "traefik.http.routers.zebriss.service=dx-website"
+
+      # www.zebriss.de → zebriss.de (separate router so a missing www record can't block the apex cert)
+      - "traefik.http.routers.zebriss-www.rule=Host(`www.zebriss.de`)"
+      - "traefik.http.routers.zebriss-www.entrypoints=websecure"
+      - "traefik.http.routers.zebriss-www.tls.certresolver=httpresolver"
+      - "traefik.http.routers.zebriss-www.service=dx-website"
+      - "traefik.http.routers.zebriss-www.middlewares=zebriss-www-to-apex"
+      - "traefik.http.middlewares.zebriss-www-to-apex.redirectregex.regex=^https://www\\.zebriss\\.de/(.*)"
+      - "traefik.http.middlewares.zebriss-www-to-apex.redirectregex.replacement=https://zebriss.de/$${1}"
+      - "traefik.http.middlewares.zebriss-www-to-apex.redirectregex.permanent=false"
+
+      # dx.rax0.de — legacy domain, stays reachable.
       - "traefik.http.routers.dx-website.rule=Host(`dx.rax0.de`)"
       - "traefik.http.routers.dx-website.entrypoints=websecure"
       - "traefik.http.routers.dx-website.tls.certresolver=myresolver"
-      - "traefik.http.services.dx-website.loadbalancer.server.port=3000"
+      - "traefik.http.routers.dx-website.service=dx-website"
+      # Temporary (302) redirect dx.rax0.de → zebriss.de, path preserved.
+      - "traefik.http.routers.dx-website.middlewares=dx-to-zebriss"
+      - "traefik.http.middlewares.dx-to-zebriss.redirectregex.regex=^https://dx\\.rax0\\.de/(.*)"
+      - "traefik.http.middlewares.dx-to-zebriss.redirectregex.replacement=https://zebriss.de/$${1}"
+      - "traefik.http.middlewares.dx-to-zebriss.redirectregex.permanent=false"
+
+volumes:
+  website_state:
 
 networks:
   web:
